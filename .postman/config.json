@@ -1,0 +1,16 @@
+{
+  "workspace": {
+    "id": "4b792291-2d13-4315-99f4-a8212882f321"
+  },
+  "entities": {
+    "collections": [
+      "../postman/collections/[Contract] Test Demo Commerce CI_50585768-30cdac0e-f302-4ac8-9391-af53e7938adb.postman_collection.json",
+      "../postman/collections/[Baseline] Test Demo Commerce CI_50585768-5093271a-299c-4c7e-b84d-c06cb97cd7b8.postman_collection.json",
+      "../postman/collections/[Smoke] Test Demo Commerce CI_50585768-91a585ad-7258-4f34-aa34-7eeb3735f246.postman_collection.json"
+    ],
+    "environments": [],
+    "specs": [],
+    "flows": [],
+    "globals": []
+  }
+}

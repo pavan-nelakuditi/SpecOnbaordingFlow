@@ -1,0 +1,3806 @@
+{
+  "info": {
+    "_postman_id": "30cdac0e-f302-4ac8-9391-af53e7938adb",
+    "name": "[Contract] Test Demo Commerce CI",
+    "description": "Unified generated OpenAPI document for the demo-commerce platform.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "products",
+      "item": [
+        {
+          "name": "{id}",
+          "item": [
+            {
+              "name": "Get a product by id",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "type": "text/javascript",
+                    "exec": [
+                      "// [Contract] Auto-generated contract test assertions",
+                      "",
+                      "pm.test('Status code is successful (2xx)', function () {",
+                      "    pm.response.to.be.success;",
+                      "});",
+                      "",
+                      "pm.test('Response time is acceptable', function () {",
+                      "    var threshold = parseInt(pm.environment.get('RESPONSE_TIME_THRESHOLD') || '2000', 10);",
+                      "    pm.expect(pm.response.responseTime).to.be.below(threshold);",
+                      "});",
+                      "",
+                      "pm.test('Response body is not empty', function () {",
+                      "    if (pm.response.code !== 204) {",
+                      "        var body = pm.response.text();",
+                      "        pm.expect(body.length).to.be.above(0);",
+                      "    }",
+                      "});",
+                      "",
+                      "pm.test('Content-Type is application/json', function () {",
+                      "    if (pm.response.code !== 204) {",
+                      "        pm.response.to.have.header('Content-Type');",
+                      "        pm.expect(pm.response.headers.get('Content-Type')).to.include('application/json');",
+                      "    }",
+                      "});",
+                      "",
+                      "pm.test('Response is valid JSON', function () {",
+                      "    if (pm.response.code !== 204) {",
+                      "        pm.response.to.be.json;",
+                      "    }",
+                      "});",
+                      "",
+                      "// Validate required fields from response schema",
+                      "pm.test('Required fields are present', function () {",
+                      "    if (pm.response.code === 204) return;",
+                      "    var jsonData = pm.response.json();",
+                      "    pm.expect(jsonData).to.be.an('object');",
+                      "    var keys = Object.keys(jsonData);",
+                      "    if (keys.length === 1 && Array.isArray(jsonData[keys[0]])) {",
+                      "        pm.expect(jsonData[keys[0]]).to.be.an('array');",
+                      "    }",
+                      "});",
+                      "",
+                      "// Validate response field types (non-null required fields)",
+                      "pm.test('Field types are correct', function () {",
+                      "    if (pm.response.code === 204) return;",
+                      "    var jsonData = pm.response.json();",
+                      "    Object.keys(jsonData).forEach(function(key) {",
+                      "        pm.expect(jsonData[key]).to.not.be.undefined;",
+                      "    });",
+                      "});",
+                      "",
+                      "(function() {",
+                      "    var status = pm.response.code;",
+                      "    if (status === 204) return; ",
+                      "    try {",
+                      "        var body = pm.response.json();",
+                      "        pm.test('Response body matches expected structure', function () {",
+                      "            pm.expect(typeof body).to.equal('object');",
+                      "            if (status >= 400) {",
+                      "                pm.expect(body).to.have.property('error');",
+                      "                pm.expect(body).to.have.property('message');",
+                      "            }",
+                      "        });",
+                      "    } catch (e) {}",
+                      "})();"
+                    ]
+                  }
+                }
+              ],
+              "id": "185d2e30-dadb-4387-8840-52327c7230a5",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/products/:id",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "products",
+                    ":id"
+                  ],
+                  "variable": [
+                    {
+                      "key": "id",
+                      "value": "string",
+                      "description": "Seeded product id such as prod_001."
+                    }
+                  ]
+                }
+              },
+              "response": [
+                {
+                  "id": "cb969e3e-1bb4-437c-9591-a3f7fcfebf28",
+                  "name": "Product detail",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/products/:id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "products",
+                        ":id"
+                      ],
+                      "variable": [
+                        {
+                          "key": "id",
+                          "value": "string",
+                          "description": "Seeded product id such as prod_001."
+                        }
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"id\": \"prod_001\",\n  \"sku\": \"SKU-0001\",\n  \"slug\": \"nimbus-running-shoe\",\n  \"name\": \"Nimbus Running Shoe\",\n  \"description\": \"string\",\n  \"category\": \"Footwear\",\n  \"price\": 129,\n  \"currency\": \"USD\",\n  \"inventory\": 28,\n  \"featured\": true\n}"
+                },
+                {
+                  "id": "3b6bb4a4-d612-46e2-88ae-c0b91aa674b8",
+                  "name": "Product not found",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/products/:id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "products",
+                        ":id"
+                      ],
+                      "variable": [
+                        {
+                          "key": "id",
+                          "value": "string",
+                          "description": "Seeded product id such as prod_001."
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Not Found",
+                  "code": 404,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"error\": \"string\",\n  \"message\": \"string\",\n  \"gatewayStatus\": 401\n}"
+                }
+              ]
+            }
+          ],
+          "id": "9b810cca-9a38-464a-be23-a966d483227c"
+        },
+        {
+          "name": "List products",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "// [Contract] Auto-generated contract test assertions",
+                  "",
+                  "pm.test('Status code is successful (2xx)', function () {",
+                  "    pm.response.to.be.success;",
+                  "});",
+                  "",
+                  "pm.test('Response time is acceptable', function () {",
+                  "    var threshold = parseInt(pm.environment.get('RESPONSE_TIME_THRESHOLD') || '2000', 10);",
+                  "    pm.expect(pm.response.responseTime).to.be.below(threshold);",
+                  "});",
+                  "",
+                  "pm.test('Response body is not empty', function () {",
+                  "    if (pm.response.code !== 204) {",
+                  "        var body = pm.response.text();",
+                  "        pm.expect(body.length).to.be.above(0);",
+                  "    }",
+                  "});",
+                  "",
+                  "pm.test('Content-Type is application/json', function () {",
+                  "    if (pm.response.code !== 204) {",
+                  "        pm.response.to.have.header('Content-Type');",
+                  "        pm.expect(pm.response.headers.get('Content-Type')).to.include('application/json');",
+                  "    }",
+                  "});",
+                  "",
+                  "pm.test('Response is valid JSON', function () {",
+                  "    if (pm.response.code !== 204) {",
+                  "        pm.response.to.be.json;",
+                  "    }",
+                  "});",
+                  "",
+                  "// Validate required fields from response schema",
+                  "pm.test('Required fields are present', function () {",
+                  "    if (pm.response.code === 204) return;",
+                  "    var jsonData = pm.response.json();",
+                  "    pm.expect(jsonData).to.be.an('object');",
+                  "    var keys = Object.keys(jsonData);",
+                  "    if (keys.length === 1 && Array.isArray(jsonData[keys[0]])) {",
+                  "        pm.expect(jsonData[keys[0]]).to.be.an('array');",
+                  "    }",
+                  "});",
+                  "",
+                  "// Validate response field types (non-null required fields)",
+                  "pm.test('Field types are correct', function () {",
+                  "    if (pm.response.code === 204) return;",
+                  "    var jsonData = pm.response.json();",
+                  "    Object.keys(jsonData).forEach(function(key) {",
+                  "        pm.expect(jsonData[key]).to.not.be.undefined;",
+                  "    });",
+                  "});",
+                  "",
+                  "(function() {",
+                  "    var status = pm.response.code;",
+                  "    if (status === 204) return; ",
+                  "    try {",
+                  "        var body = pm.response.json();",
+                  "        pm.test('Response body matches expected structure', function () {",
+                  "            pm.expect(typeof body).to.equal('object');",
+                  "            if (status >= 400) {",
+                  "                pm.expect(body).to.have.property('error');",
+                  "                pm.expect(body).to.have.property('message');",
+                  "            }",
+                  "        });",
+                  "    } catch (e) {}",
+                  "})();"
+                ]
+              }
+            }
+          ],
+          "id": "35a5f4d2-e787-4f1f-814b-13d9a0deb5a2",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/products",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "products"
+              ]
+            },
+            "description": "Returns the seeded demo product catalog."
+          },
+          "response": [
+            {
+              "id": "ef28c7aa-d2dc-403e-be02-c2f91a8a3c31",
+              "name": "Product catalog response",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/products",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "products"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"items\": [\n    {\n      \"id\": \"prod_001\",\n      \"sku\": \"SKU-0001\",\n      \"slug\": \"nimbus-running-shoe\",\n      \"name\": \"Nimbus Running Shoe\",\n      \"description\": \"string\",\n      \"category\": \"Footwear\",\n      \"price\": 129,\n      \"currency\": \"USD\",\n      \"inventory\": 28,\n      \"featured\": true\n    },\n    {\n      \"id\": \"prod_001\",\n      \"sku\": \"SKU-0001\",\n      \"slug\": \"nimbus-running-shoe\",\n      \"name\": \"Nimbus Running Shoe\",\n      \"description\": \"string\",\n      \"category\": \"Footwear\",\n      \"price\": 129,\n      \"currency\": \"USD\",\n      \"inventory\": 28,\n      \"featured\": true\n    }\n  ],\n  \"count\": 30\n}"
+            }
+          ]
+        }
+      ],
+      "id": "8046a07f-ffbf-4daa-a23f-87dbb55d6e99"
+    },
+    {
+      "name": "cart",
+      "item": [
+        {
+          "name": "{id}",
+          "item": [
+            {
+              "name": "items",
+              "item": [
+                {
+                  "name": "Add an item to a cart",
+                  "event": [
+                    {
+                      "listen": "test",
+                      "script": {
+                        "type": "text/javascript",
+                        "exec": [
+                          "// [Contract] Auto-generated contract test assertions",
+                          "",
+                          "pm.test('Status code is successful (2xx)', function () {",
+                          "    pm.response.to.be.success;",
+                          "});",
+                          "",
+                          "pm.test('Response time is acceptable', function () {",
+                          "    var threshold = parseInt(pm.environment.get('RESPONSE_TIME_THRESHOLD') || '2000', 10);",
+                          "    pm.expect(pm.response.responseTime).to.be.below(threshold);",
+                          "});",
+                          "",
+                          "pm.test('Response body is not empty', function () {",
+                          "    if (pm.response.code !== 204) {",
+                          "        var body = pm.response.text();",
+                          "        pm.expect(body.length).to.be.above(0);",
+                          "    }",
+                          "});",
+                          "",
+                          "pm.test('Content-Type is application/json', function () {",
+                          "    if (pm.response.code !== 204) {",
+                          "        pm.response.to.have.header('Content-Type');",
+                          "        pm.expect(pm.response.headers.get('Content-Type')).to.include('application/json');",
+                          "    }",
+                          "});",
+                          "",
+                          "pm.test('Response is valid JSON', function () {",
+                          "    if (pm.response.code !== 204) {",
+                          "        pm.response.to.be.json;",
+                          "    }",
+                          "});",
+                          "",
+                          "// Validate required fields from response schema",
+                          "pm.test('Required fields are present', function () {",
+                          "    if (pm.response.code === 204) return;",
+                          "    var jsonData = pm.response.json();",
+                          "    pm.expect(jsonData).to.be.an('object');",
+                          "    var keys = Object.keys(jsonData);",
+                          "    if (keys.length === 1 && Array.isArray(jsonData[keys[0]])) {",
+                          "        pm.expect(jsonData[keys[0]]).to.be.an('array');",
+                          "    }",
+                          "});",
+                          "",
+                          "// Validate response field types (non-null required fields)",
+                          "pm.test('Field types are correct', function () {",
+                          "    if (pm.response.code === 204) return;",
+                          "    var jsonData = pm.response.json();",
+                          "    Object.keys(jsonData).forEach(function(key) {",
+                          "        pm.expect(jsonData[key]).to.not.be.undefined;",
+                          "    });",
+                          "});",
+                          "",
+                          "(function() {",
+                          "    var status = pm.response.code;",
+                          "    if (status === 204) return; ",
+                          "    try {",
+                          "        var body = pm.response.json();",
+                          "        pm.test('Response body matches expected structure', function () {",
+                          "            pm.expect(typeof body).to.equal('object');",
+                          "            if (status >= 400) {",
+                          "                pm.expect(body).to.have.property('error');",
+                          "                pm.expect(body).to.have.property('message');",
+                          "            }",
+                          "        });",
+                          "    } catch (e) {}",
+                          "})();"
+                        ]
+                      }
+                    }
+                  ],
+                  "id": "e32f0501-c2f6-4652-98a3-ebe60a44482f",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"productId\": \"prod_001\",\n  \"quantity\": 1\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/cart/:id/items",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "cart",
+                        ":id",
+                        "items"
+                      ],
+                      "variable": [
+                        {
+                          "key": "id",
+                          "value": "string",
+                          "description": "Cart id."
+                        }
+                      ]
+                    }
+                  },
+                  "response": [
+                    {
+                      "id": "555e710b-cd3e-4c52-9e9a-8c790502476d",
+                      "name": "Updated cart",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"productId\": \"prod_001\",\n  \"quantity\": 1\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/cart/:id/items",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "cart",
+                            ":id",
+                            "items"
+                          ],
+                          "variable": [
+                            {
+                              "key": "id",
+                              "value": "string",
+                              "description": "Cart id."
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Created",
+                      "code": 201,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"id\": \"cart_201\",\n  \"status\": \"abandoned\",\n  \"currency\": \"USD\",\n  \"items\": [\n    {\n      \"productId\": \"prod_001\",\n      \"productName\": \"Nimbus Running Shoe\",\n      \"quantity\": 2,\n      \"unitPrice\": 129,\n      \"lineTotal\": 258\n    },\n    {\n      \"productId\": \"prod_001\",\n      \"productName\": \"Nimbus Running Shoe\",\n      \"quantity\": 2,\n      \"unitPrice\": 129,\n      \"lineTotal\": 258\n    }\n  ],\n  \"subtotal\": 258,\n  \"createdAt\": \"1963-12-24T21:31:20.141Z\",\n  \"updatedAt\": \"2005-12-22T18:21:50.906Z\",\n  \"customerId\": \"cust_005\"\n}"
+                    },
+                    {
+                      "id": "02ab97c0-e186-49db-9273-90e1ef590857",
+                      "name": "Invalid product id payload",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"productId\": \"prod_001\",\n  \"quantity\": 1\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/cart/:id/items",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "cart",
+                            ":id",
+                            "items"
+                          ],
+                          "variable": [
+                            {
+                              "key": "id",
+                              "value": "string",
+                              "description": "Cart id."
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Bad Request",
+                      "code": 400,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"error\": \"string\",\n  \"message\": \"string\",\n  \"gatewayStatus\": 401\n}"
+                    },
+                    {
+                      "id": "7497e88c-6de6-430c-960c-4fad628f93f0",
+                      "name": "Cart or product not found",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"productId\": \"prod_001\",\n  \"quantity\": 1\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/cart/:id/items",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "cart",
+                            ":id",
+                            "items"
+                          ],
+                          "variable": [
+                            {
+                              "key": "id",
+                              "value": "string",
+                              "description": "Cart id."
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Not Found",
+                      "code": 404,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"error\": \"string\",\n  \"message\": \"string\",\n  \"gatewayStatus\": 401\n}"
+                    }
+                  ]
+                }
+              ],
+              "id": "39f17984-fe66-44a6-9ef8-75bae8a35ab0"
+            },
+            {
+              "name": "Get a cart by id",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "type": "text/javascript",
+                    "exec": [
+                      "// [Contract] Auto-generated contract test assertions",
+                      "",
+                      "pm.test('Status code is successful (2xx)', function () {",
+                      "    pm.response.to.be.success;",
+                      "});",
+                      "",
+                      "pm.test('Response time is acceptable', function () {",
+                      "    var threshold = parseInt(pm.environment.get('RESPONSE_TIME_THRESHOLD') || '2000', 10);",
+                      "    pm.expect(pm.response.responseTime).to.be.below(threshold);",
+                      "});",
+                      "",
+                      "pm.test('Response body is not empty', function () {",
+                      "    if (pm.response.code !== 204) {",
+                      "        var body = pm.response.text();",
+                      "        pm.expect(body.length).to.be.above(0);",
+                      "    }",
+                      "});",
+                      "",
+                      "pm.test('Content-Type is application/json', function () {",
+                      "    if (pm.response.code !== 204) {",
+                      "        pm.response.to.have.header('Content-Type');",
+                      "        pm.expect(pm.response.headers.get('Content-Type')).to.include('application/json');",
+                      "    }",
+                      "});",
+                      "",
+                      "pm.test('Response is valid JSON', function () {",
+                      "    if (pm.response.code !== 204) {",
+                      "        pm.response.to.be.json;",
+                      "    }",
+                      "});",
+                      "",
+                      "// Validate required fields from response schema",
+                      "pm.test('Required fields are present', function () {",
+                      "    if (pm.response.code === 204) return;",
+                      "    var jsonData = pm.response.json();",
+                      "    pm.expect(jsonData).to.be.an('object');",
+                      "    var keys = Object.keys(jsonData);",
+                      "    if (keys.length === 1 && Array.isArray(jsonData[keys[0]])) {",
+                      "        pm.expect(jsonData[keys[0]]).to.be.an('array');",
+                      "    }",
+                      "});",
+                      "",
+                      "// Validate response field types (non-null required fields)",
+                      "pm.test('Field types are correct', function () {",
+                      "    if (pm.response.code === 204) return;",
+                      "    var jsonData = pm.response.json();",
+                      "    Object.keys(jsonData).forEach(function(key) {",
+                      "        pm.expect(jsonData[key]).to.not.be.undefined;",
+                      "    });",
+                      "});",
+                      "",
+                      "(function() {",
+                      "    var status = pm.response.code;",
+                      "    if (status === 204) return; ",
+                      "    try {",
+                      "        var body = pm.response.json();",
+                      "        pm.test('Response body matches expected structure', function () {",
+                      "            pm.expect(typeof body).to.equal('object');",
+                      "            if (status >= 400) {",
+                      "                pm.expect(body).to.have.property('error');",
+                      "                pm.expect(body).to.have.property('message');",
+                      "            }",
+                      "        });",
+                      "    } catch (e) {}",
+                      "})();"
+                    ]
+                  }
+                }
+              ],
+              "id": "d0137aef-0c3c-40fb-b6af-13dece275716",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/cart/:id",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "cart",
+                    ":id"
+                  ],
+                  "variable": [
+                    {
+                      "key": "id",
+                      "value": "string",
+                      "description": "Cart id."
+                    }
+                  ]
+                }
+              },
+              "response": [
+                {
+                  "id": "aa5e0fbb-ad00-410a-9b3e-76f537c4f193",
+                  "name": "Cart detail",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/cart/:id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "cart",
+                        ":id"
+                      ],
+                      "variable": [
+                        {
+                          "key": "id",
+                          "value": "string",
+                          "description": "Cart id."
+                        }
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"id\": \"cart_201\",\n  \"status\": \"abandoned\",\n  \"currency\": \"USD\",\n  \"items\": [\n    {\n      \"productId\": \"prod_001\",\n      \"productName\": \"Nimbus Running Shoe\",\n      \"quantity\": 2,\n      \"unitPrice\": 129,\n      \"lineTotal\": 258\n    },\n    {\n      \"productId\": \"prod_001\",\n      \"productName\": \"Nimbus Running Shoe\",\n      \"quantity\": 2,\n      \"unitPrice\": 129,\n      \"lineTotal\": 258\n    }\n  ],\n  \"subtotal\": 258,\n  \"createdAt\": \"1963-12-24T21:31:20.141Z\",\n  \"updatedAt\": \"2005-12-22T18:21:50.906Z\",\n  \"customerId\": \"cust_005\"\n}"
+                },
+                {
+                  "id": "f2f33819-5afd-45ff-83c5-3f446aa7696d",
+                  "name": "Cart not found",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/cart/:id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "cart",
+                        ":id"
+                      ],
+                      "variable": [
+                        {
+                          "key": "id",
+                          "value": "string",
+                          "description": "Cart id."
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Not Found",
+                  "code": 404,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"error\": \"string\",\n  \"message\": \"string\",\n  \"gatewayStatus\": 401\n}"
+                }
+              ]
+            }
+          ],
+          "id": "42d43fed-c738-4e47-a5d7-8ea2ddb2cd34"
+        },
+        {
+          "name": "Create a cart",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "// [Contract] Auto-generated contract test assertions",
+                  "",
+                  "pm.test('Status code is successful (2xx)', function () {",
+                  "    pm.response.to.be.success;",
+                  "});",
+                  "",
+                  "pm.test('Response time is acceptable', function () {",
+                  "    var threshold = parseInt(pm.environment.get('RESPONSE_TIME_THRESHOLD') || '2000', 10);",
+                  "    pm.expect(pm.response.responseTime).to.be.below(threshold);",
+                  "});",
+                  "",
+                  "pm.test('Response body is not empty', function () {",
+                  "    if (pm.response.code !== 204) {",
+                  "        var body = pm.response.text();",
+                  "        pm.expect(body.length).to.be.above(0);",
+                  "    }",
+                  "});",
+                  "",
+                  "pm.test('Content-Type is application/json', function () {",
+                  "    if (pm.response.code !== 204) {",
+                  "        pm.response.to.have.header('Content-Type');",
+                  "        pm.expect(pm.response.headers.get('Content-Type')).to.include('application/json');",
+                  "    }",
+                  "});",
+                  "",
+                  "pm.test('Response is valid JSON', function () {",
+                  "    if (pm.response.code !== 204) {",
+                  "        pm.response.to.be.json;",
+                  "    }",
+                  "});",
+                  "",
+                  "// Validate required fields from response schema",
+                  "pm.test('Required fields are present', function () {",
+                  "    if (pm.response.code === 204) return;",
+                  "    var jsonData = pm.response.json();",
+                  "    pm.expect(jsonData).to.be.an('object');",
+                  "    var keys = Object.keys(jsonData);",
+                  "    if (keys.length === 1 && Array.isArray(jsonData[keys[0]])) {",
+                  "        pm.expect(jsonData[keys[0]]).to.be.an('array');",
+                  "    }",
+                  "});",
+                  "",
+                  "// Validate response field types (non-null required fields)",
+                  "pm.test('Field types are correct', function () {",
+                  "    if (pm.response.code === 204) return;",
+                  "    var jsonData = pm.response.json();",
+                  "    Object.keys(jsonData).forEach(function(key) {",
+                  "        pm.expect(jsonData[key]).to.not.be.undefined;",
+                  "    });",
+                  "});",
+                  "",
+                  "(function() {",
+                  "    var status = pm.response.code;",
+                  "    if (status === 204) return; ",
+                  "    try {",
+                  "        var body = pm.response.json();",
+                  "        pm.test('Response body matches expected structure', function () {",
+                  "            pm.expect(typeof body).to.equal('object');",
+                  "            if (status >= 400) {",
+                  "                pm.expect(body).to.have.property('error');",
+                  "                pm.expect(body).to.have.property('message');",
+                  "            }",
+                  "        });",
+                  "    } catch (e) {}",
+                  "})();"
+                ]
+              }
+            }
+          ],
+          "id": "4523479c-bdb7-446d-9c21-95df9f7366e4",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"customerId\": \"cust_005\",\n  \"currency\": \"USD\"\n}",
+              "options": {
+                "raw": {
+                  "headerFamily": "json",
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/cart",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "cart"
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "996ea634-fcab-4235-a77f-e732d00e4bac",
+              "name": "Created cart",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"customerId\": \"cust_005\",\n  \"currency\": \"USD\"\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/cart",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "cart"
+                  ]
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"id\": \"cart_201\",\n  \"status\": \"abandoned\",\n  \"currency\": \"USD\",\n  \"items\": [\n    {\n      \"productId\": \"prod_001\",\n      \"productName\": \"Nimbus Running Shoe\",\n      \"quantity\": 2,\n      \"unitPrice\": 129,\n      \"lineTotal\": 258\n    },\n    {\n      \"productId\": \"prod_001\",\n      \"productName\": \"Nimbus Running Shoe\",\n      \"quantity\": 2,\n      \"unitPrice\": 129,\n      \"lineTotal\": 258\n    }\n  ],\n  \"subtotal\": 258,\n  \"createdAt\": \"1963-12-24T21:31:20.141Z\",\n  \"updatedAt\": \"2005-12-22T18:21:50.906Z\",\n  \"customerId\": \"cust_005\"\n}"
+            }
+          ]
+        }
+      ],
+      "id": "3aae182f-12a0-42ed-a110-1d8ed56f4f3e"
+    },
+    {
+      "name": "orders",
+      "item": [
+        {
+          "name": "{id}",
+          "item": [
+            {
+              "name": "history",
+              "item": [
+                {
+                  "name": "Get order history from the production route",
+                  "event": [
+                    {
+                      "listen": "test",
+                      "script": {
+                        "type": "text/javascript",
+                        "exec": [
+                          "// [Contract] Auto-generated contract test assertions",
+                          "",
+                          "pm.test('Status code is successful (2xx)', function () {",
+                          "    pm.response.to.be.success;",
+                          "});",
+                          "",
+                          "pm.test('Response time is acceptable', function () {",
+                          "    var threshold = parseInt(pm.environment.get('RESPONSE_TIME_THRESHOLD') || '2000', 10);",
+                          "    pm.expect(pm.response.responseTime).to.be.below(threshold);",
+                          "});",
+                          "",
+                          "pm.test('Response body is not empty', function () {",
+                          "    if (pm.response.code !== 204) {",
+                          "        var body = pm.response.text();",
+                          "        pm.expect(body.length).to.be.above(0);",
+                          "    }",
+                          "});",
+                          "",
+                          "pm.test('Content-Type is application/json', function () {",
+                          "    if (pm.response.code !== 204) {",
+                          "        pm.response.to.have.header('Content-Type');",
+                          "        pm.expect(pm.response.headers.get('Content-Type')).to.include('application/json');",
+                          "    }",
+                          "});",
+                          "",
+                          "pm.test('Response is valid JSON', function () {",
+                          "    if (pm.response.code !== 204) {",
+                          "        pm.response.to.be.json;",
+                          "    }",
+                          "});",
+                          "",
+                          "// Validate required fields from response schema",
+                          "pm.test('Required fields are present', function () {",
+                          "    if (pm.response.code === 204) return;",
+                          "    var jsonData = pm.response.json();",
+                          "    pm.expect(jsonData).to.be.an('object');",
+                          "    var keys = Object.keys(jsonData);",
+                          "    if (keys.length === 1 && Array.isArray(jsonData[keys[0]])) {",
+                          "        pm.expect(jsonData[keys[0]]).to.be.an('array');",
+                          "    }",
+                          "});",
+                          "",
+                          "// Validate response field types (non-null required fields)",
+                          "pm.test('Field types are correct', function () {",
+                          "    if (pm.response.code === 204) return;",
+                          "    var jsonData = pm.response.json();",
+                          "    Object.keys(jsonData).forEach(function(key) {",
+                          "        pm.expect(jsonData[key]).to.not.be.undefined;",
+                          "    });",
+                          "});",
+                          "",
+                          "(function() {",
+                          "    var status = pm.response.code;",
+                          "    if (status === 204) return; ",
+                          "    try {",
+                          "        var body = pm.response.json();",
+                          "        pm.test('Response body matches expected structure', function () {",
+                          "            pm.expect(typeof body).to.equal('object');",
+                          "            if (status >= 400) {",
+                          "                pm.expect(body).to.have.property('error');",
+                          "                pm.expect(body).to.have.property('message');",
+                          "            }",
+                          "        });",
+                          "    } catch (e) {}",
+                          "})();"
+                        ]
+                      }
+                    }
+                  ],
+                  "id": "aa33d1bd-b684-4d42-9029-3cbd9d21cc80",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/orders/:id/history",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "orders",
+                        ":id",
+                        "history"
+                      ],
+                      "variable": [
+                        {
+                          "key": "id",
+                          "value": "string"
+                        }
+                      ]
+                    }
+                  },
+                  "response": [
+                    {
+                      "id": "55a3549f-7662-4792-b775-ae3852ce7b5e",
+                      "name": "Order history response",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/orders/:id/history",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "orders",
+                            ":id",
+                            "history"
+                          ],
+                          "variable": [
+                            {
+                              "key": "id",
+                              "value": "string"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"order\": {\n    \"id\": \"ord_201\",\n    \"order_number\": \"DC-260301\",\n    \"customerId\": \"demo-customer-42\",\n    \"cartId\": \"cart_201\",\n    \"status\": \"refunded\",\n    \"total_price\": 129,\n    \"currency_code\": \"USD\",\n    \"created_at\": \"1987-01-17T10:07:34.537Z\",\n    \"updated_at\": \"1947-03-09T17:46:01.638Z\"\n  },\n  \"history\": [\n    {\n      \"id\": \"hist_1001\",\n      \"type\": \"payment_authorized\",\n      \"status\": \"fulfilled\",\n      \"actor\": \"orders-service\",\n      \"message\": \"string\",\n      \"timestamp\": \"1950-06-17T21:13:51.602Z\"\n    },\n    {\n      \"id\": \"hist_1001\",\n      \"type\": \"refunded\",\n      \"status\": \"fulfilled\",\n      \"actor\": \"orders-service\",\n      \"message\": \"string\",\n      \"timestamp\": \"1966-03-11T12:30:52.329Z\"\n    }\n  ]\n}"
+                    },
+                    {
+                      "id": "a5d10fad-0cfd-4849-ae3b-7ea5511f4064",
+                      "name": "Order not found",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/orders/:id/history",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "orders",
+                            ":id",
+                            "history"
+                          ],
+                          "variable": [
+                            {
+                              "key": "id",
+                              "value": "string"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Not Found",
+                      "code": 404,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"error\": \"string\",\n  \"message\": \"string\",\n  \"gatewayStatus\": 401\n}"
+                    }
+                  ]
+                }
+              ],
+              "id": "dcf7d443-26c4-42d4-a85e-ddba1327c4ab"
+            },
+            {
+              "name": "Get an order by id from the production route",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "type": "text/javascript",
+                    "exec": [
+                      "// [Contract] Auto-generated contract test assertions",
+                      "",
+                      "pm.test('Status code is successful (2xx)', function () {",
+                      "    pm.response.to.be.success;",
+                      "});",
+                      "",
+                      "pm.test('Response time is acceptable', function () {",
+                      "    var threshold = parseInt(pm.environment.get('RESPONSE_TIME_THRESHOLD') || '2000', 10);",
+                      "    pm.expect(pm.response.responseTime).to.be.below(threshold);",
+                      "});",
+                      "",
+                      "pm.test('Response body is not empty', function () {",
+                      "    if (pm.response.code !== 204) {",
+                      "        var body = pm.response.text();",
+                      "        pm.expect(body.length).to.be.above(0);",
+                      "    }",
+                      "});",
+                      "",
+                      "pm.test('Content-Type is application/json', function () {",
+                      "    if (pm.response.code !== 204) {",
+                      "        pm.response.to.have.header('Content-Type');",
+                      "        pm.expect(pm.response.headers.get('Content-Type')).to.include('application/json');",
+                      "    }",
+                      "});",
+                      "",
+                      "pm.test('Response is valid JSON', function () {",
+                      "    if (pm.response.code !== 204) {",
+                      "        pm.response.to.be.json;",
+                      "    }",
+                      "});",
+                      "",
+                      "// Validate required fields from response schema",
+                      "pm.test('Required fields are present', function () {",
+                      "    if (pm.response.code === 204) return;",
+                      "    var jsonData = pm.response.json();",
+                      "    pm.expect(jsonData).to.be.an('object');",
+                      "    var keys = Object.keys(jsonData);",
+                      "    if (keys.length === 1 && Array.isArray(jsonData[keys[0]])) {",
+                      "        pm.expect(jsonData[keys[0]]).to.be.an('array');",
+                      "    }",
+                      "});",
+                      "",
+                      "// Validate response field types (non-null required fields)",
+                      "pm.test('Field types are correct', function () {",
+                      "    if (pm.response.code === 204) return;",
+                      "    var jsonData = pm.response.json();",
+                      "    Object.keys(jsonData).forEach(function(key) {",
+                      "        pm.expect(jsonData[key]).to.not.be.undefined;",
+                      "    });",
+                      "});",
+                      "",
+                      "(function() {",
+                      "    var status = pm.response.code;",
+                      "    if (status === 204) return; ",
+                      "    try {",
+                      "        var body = pm.response.json();",
+                      "        pm.test('Response body matches expected structure', function () {",
+                      "            pm.expect(typeof body).to.equal('object');",
+                      "            if (status >= 400) {",
+                      "                pm.expect(body).to.have.property('error');",
+                      "                pm.expect(body).to.have.property('message');",
+                      "            }",
+                      "        });",
+                      "    } catch (e) {}",
+                      "})();"
+                    ]
+                  }
+                }
+              ],
+              "id": "486e20a8-12bb-4860-bb1b-3f8d43b650fd",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/orders/:id",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "orders",
+                    ":id"
+                  ],
+                  "variable": [
+                    {
+                      "key": "id",
+                      "value": "string"
+                    }
+                  ]
+                }
+              },
+              "response": [
+                {
+                  "id": "6ff593fa-4c7c-42a8-a796-f900138f480f",
+                  "name": "Order in the public response format",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/orders/:id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "orders",
+                        ":id"
+                      ],
+                      "variable": [
+                        {
+                          "key": "id",
+                          "value": "string"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"id\": \"ord_201\",\n  \"order_number\": \"DC-260301\",\n  \"customerId\": \"demo-customer-42\",\n  \"cartId\": \"cart_201\",\n  \"status\": \"authorized\",\n  \"total_price\": 129,\n  \"currency_code\": \"USD\",\n  \"created_at\": \"1958-08-30T16:19:39.461Z\",\n  \"updated_at\": \"2025-02-07T16:34:36.645Z\"\n}"
+                },
+                {
+                  "id": "54e7521a-bf29-40a9-9655-60197245b227",
+                  "name": "Order not found",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/orders/:id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "orders",
+                        ":id"
+                      ],
+                      "variable": [
+                        {
+                          "key": "id",
+                          "value": "string"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Not Found",
+                  "code": 404,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"error\": \"string\",\n  \"message\": \"string\",\n  \"gatewayStatus\": 401\n}"
+                }
+              ]
+            }
+          ],
+          "id": "149ac2c6-3026-43dc-8489-3c8af4b85d93"
+        },
+        {
+          "name": "Create an order using the public production contract",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "// [Contract] Auto-generated contract test assertions",
+                  "",
+                  "pm.test('Status code is successful (2xx)', function () {",
+                  "    pm.response.to.be.success;",
+                  "});",
+                  "",
+                  "pm.test('Response time is acceptable', function () {",
+                  "    var threshold = parseInt(pm.environment.get('RESPONSE_TIME_THRESHOLD') || '2000', 10);",
+                  "    pm.expect(pm.response.responseTime).to.be.below(threshold);",
+                  "});",
+                  "",
+                  "pm.test('Response body is not empty', function () {",
+                  "    if (pm.response.code !== 204) {",
+                  "        var body = pm.response.text();",
+                  "        pm.expect(body.length).to.be.above(0);",
+                  "    }",
+                  "});",
+                  "",
+                  "pm.test('Content-Type is application/json', function () {",
+                  "    if (pm.response.code !== 204) {",
+                  "        pm.response.to.have.header('Content-Type');",
+                  "        pm.expect(pm.response.headers.get('Content-Type')).to.include('application/json');",
+                  "    }",
+                  "});",
+                  "",
+                  "pm.test('Response is valid JSON', function () {",
+                  "    if (pm.response.code !== 204) {",
+                  "        pm.response.to.be.json;",
+                  "    }",
+                  "});",
+                  "",
+                  "// Validate required fields from response schema",
+                  "pm.test('Required fields are present', function () {",
+                  "    if (pm.response.code === 204) return;",
+                  "    var jsonData = pm.response.json();",
+                  "    pm.expect(jsonData).to.be.an('object');",
+                  "    var keys = Object.keys(jsonData);",
+                  "    if (keys.length === 1 && Array.isArray(jsonData[keys[0]])) {",
+                  "        pm.expect(jsonData[keys[0]]).to.be.an('array');",
+                  "    }",
+                  "});",
+                  "",
+                  "// Validate response field types (non-null required fields)",
+                  "pm.test('Field types are correct', function () {",
+                  "    if (pm.response.code === 204) return;",
+                  "    var jsonData = pm.response.json();",
+                  "    Object.keys(jsonData).forEach(function(key) {",
+                  "        pm.expect(jsonData[key]).to.not.be.undefined;",
+                  "    });",
+                  "});",
+                  "",
+                  "(function() {",
+                  "    var status = pm.response.code;",
+                  "    if (status === 204) return; ",
+                  "    try {",
+                  "        var body = pm.response.json();",
+                  "        pm.test('Response body matches expected structure', function () {",
+                  "            pm.expect(typeof body).to.equal('object');",
+                  "            if (status >= 400) {",
+                  "                pm.expect(body).to.have.property('error');",
+                  "                pm.expect(body).to.have.property('message');",
+                  "            }",
+                  "        });",
+                  "    } catch (e) {}",
+                  "})();"
+                ]
+              }
+            }
+          ],
+          "id": "4b3d634b-f9a1-490c-8cf9-2a1c980d79a4",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"customerId\": \"demo-customer-42\",\n  \"cartId\": \"cart_201\",\n  \"total_price\": 129,\n  \"currency_code\": \"USD\"\n}",
+              "options": {
+                "raw": {
+                  "headerFamily": "json",
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/orders",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "orders"
+              ]
+            },
+            "description": "Consumer-facing contract for the production /orders route. The documented request uses total_price and currency_code."
+          },
+          "response": [
+            {
+              "id": "61731275-b429-46a6-9298-c04b39b18d76",
+              "name": "Created order in the public response format",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"customerId\": \"demo-customer-42\",\n  \"cartId\": \"cart_201\",\n  \"total_price\": 129,\n  \"currency_code\": \"USD\"\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/orders",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "orders"
+                  ]
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"id\": \"ord_201\",\n  \"order_number\": \"DC-260301\",\n  \"customerId\": \"demo-customer-42\",\n  \"cartId\": \"cart_201\",\n  \"status\": \"authorized\",\n  \"total_price\": 129,\n  \"currency_code\": \"USD\",\n  \"created_at\": \"1958-08-30T16:19:39.461Z\",\n  \"updated_at\": \"2025-02-07T16:34:36.645Z\"\n}"
+            },
+            {
+              "id": "8a8f52b1-d30d-4eac-b1bc-cd4ae4a57206",
+              "name": "Invalid order payload",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"customerId\": \"demo-customer-42\",\n  \"cartId\": \"cart_201\",\n  \"total_price\": 129,\n  \"currency_code\": \"USD\"\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/orders",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "orders"
+                  ]
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"error\": \"string\",\n  \"message\": \"string\",\n  \"gatewayStatus\": 401\n}"
+            },
+            {
+              "id": "a654f596-23aa-4222-8aae-03810e0aa839",
+              "name": "Checkout or intermittent failure toggles triggered",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"customerId\": \"demo-customer-42\",\n  \"cartId\": \"cart_201\",\n  \"total_price\": 129,\n  \"currency_code\": \"USD\"\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/orders",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "orders"
+                  ]
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"error\": \"string\",\n  \"message\": \"string\",\n  \"gatewayStatus\": 401\n}"
+            }
+          ]
+        }
+      ],
+      "id": "44838d4b-da3e-427f-8d73-95bc5b5bb648"
+    },
+    {
+      "name": "payments",
+      "item": [
+        {
+          "name": "authorize",
+          "item": [
+            {
+              "name": "Authorize a payment",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "type": "text/javascript",
+                    "exec": [
+                      "// [Contract] Auto-generated contract test assertions",
+                      "",
+                      "pm.test('Status code is successful (2xx)', function () {",
+                      "    pm.response.to.be.success;",
+                      "});",
+                      "",
+                      "pm.test('Response time is acceptable', function () {",
+                      "    var threshold = parseInt(pm.environment.get('RESPONSE_TIME_THRESHOLD') || '2000', 10);",
+                      "    pm.expect(pm.response.responseTime).to.be.below(threshold);",
+                      "});",
+                      "",
+                      "pm.test('Response body is not empty', function () {",
+                      "    if (pm.response.code !== 204) {",
+                      "        var body = pm.response.text();",
+                      "        pm.expect(body.length).to.be.above(0);",
+                      "    }",
+                      "});",
+                      "",
+                      "pm.test('Content-Type is application/json', function () {",
+                      "    if (pm.response.code !== 204) {",
+                      "        pm.response.to.have.header('Content-Type');",
+                      "        pm.expect(pm.response.headers.get('Content-Type')).to.include('application/json');",
+                      "    }",
+                      "});",
+                      "",
+                      "pm.test('Response is valid JSON', function () {",
+                      "    if (pm.response.code !== 204) {",
+                      "        pm.response.to.be.json;",
+                      "    }",
+                      "});",
+                      "",
+                      "// Validate required fields from response schema",
+                      "pm.test('Required fields are present', function () {",
+                      "    if (pm.response.code === 204) return;",
+                      "    var jsonData = pm.response.json();",
+                      "    pm.expect(jsonData).to.be.an('object');",
+                      "    var keys = Object.keys(jsonData);",
+                      "    if (keys.length === 1 && Array.isArray(jsonData[keys[0]])) {",
+                      "        pm.expect(jsonData[keys[0]]).to.be.an('array');",
+                      "    }",
+                      "});",
+                      "",
+                      "// Validate response field types (non-null required fields)",
+                      "pm.test('Field types are correct', function () {",
+                      "    if (pm.response.code === 204) return;",
+                      "    var jsonData = pm.response.json();",
+                      "    Object.keys(jsonData).forEach(function(key) {",
+                      "        pm.expect(jsonData[key]).to.not.be.undefined;",
+                      "    });",
+                      "});",
+                      "",
+                      "(function() {",
+                      "    var status = pm.response.code;",
+                      "    if (status === 204) return; ",
+                      "    try {",
+                      "        var body = pm.response.json();",
+                      "        pm.test('Response body matches expected structure', function () {",
+                      "            pm.expect(typeof body).to.equal('object');",
+                      "            if (status >= 400) {",
+                      "                pm.expect(body).to.have.property('error');",
+                      "                pm.expect(body).to.have.property('message');",
+                      "            }",
+                      "        });",
+                      "    } catch (e) {}",
+                      "})();"
+                    ]
+                  }
+                }
+              ],
+              "id": "a3e5a709-5887-44c8-a6f3-1625fcccdd6c",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"orderId\": \"ord_201\",\n  \"amount\": 129,\n  \"currency\": \"USD\"\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/payments/authorize",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "payments",
+                    "authorize"
+                  ]
+                }
+              },
+              "response": [
+                {
+                  "id": "fa23ae47-4686-4d7b-b16c-354a609b4b01",
+                  "name": "Authorized payment",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"orderId\": \"ord_201\",\n  \"amount\": 129,\n  \"currency\": \"USD\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/payments/authorize",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "payments",
+                        "authorize"
+                      ]
+                    }
+                  },
+                  "status": "Created",
+                  "code": 201,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"id\": \"pay_301\",\n  \"amount\": 129,\n  \"currency\": \"USD\",\n  \"status\": \"refunded\",\n  \"gatewayReference\": \"gw_auth_301\",\n  \"createdAt\": \"2025-11-02T11:30:31.466Z\",\n  \"updatedAt\": \"1959-12-12T21:16:45.902Z\",\n  \"orderId\": \"ord_201\",\n  \"authorizedAt\": \"1991-01-25T05:55:03.135Z\",\n  \"capturedAt\": \"1964-11-28T11:50:46.703Z\",\n  \"refundedAt\": \"1986-04-06T12:16:57.245Z\"\n}"
+                },
+                {
+                  "id": "7482297c-4c48-4b89-aefe-cfa90c9b31be",
+                  "name": "Invalid payment authorization payload",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"orderId\": \"ord_201\",\n  \"amount\": 129,\n  \"currency\": \"USD\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/payments/authorize",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "payments",
+                        "authorize"
+                      ]
+                    }
+                  },
+                  "status": "Bad Request",
+                  "code": 400,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"error\": \"string\",\n  \"message\": \"string\",\n  \"gatewayStatus\": 401\n}"
+                },
+                {
+                  "id": "f4e8f61d-05fd-477f-8916-95fd44cc7e91",
+                  "name": "Gateway authorization failed",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"orderId\": \"ord_201\",\n  \"amount\": 129,\n  \"currency\": \"USD\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/payments/authorize",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "payments",
+                        "authorize"
+                      ]
+                    }
+                  },
+                  "status": "Bad Gateway",
+                  "code": 502,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"error\": \"string\",\n  \"message\": \"string\",\n  \"gatewayStatus\": 401\n}"
+                }
+              ]
+            }
+          ],
+          "id": "f2a03591-958b-4f10-970f-7728a5ad6263"
+        },
+        {
+          "name": "capture",
+          "item": [
+            {
+              "name": "Capture a payment",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "type": "text/javascript",
+                    "exec": [
+                      "// [Contract] Auto-generated contract test assertions",
+                      "",
+                      "pm.test('Status code is successful (2xx)', function () {",
+                      "    pm.response.to.be.success;",
+                      "});",
+                      "",
+                      "pm.test('Response time is acceptable', function () {",
+                      "    var threshold = parseInt(pm.environment.get('RESPONSE_TIME_THRESHOLD') || '2000', 10);",
+                      "    pm.expect(pm.response.responseTime).to.be.below(threshold);",
+                      "});",
+                      "",
+                      "pm.test('Response body is not empty', function () {",
+                      "    if (pm.response.code !== 204) {",
+                      "        var body = pm.response.text();",
+                      "        pm.expect(body.length).to.be.above(0);",
+                      "    }",
+                      "});",
+                      "",
+                      "pm.test('Content-Type is application/json', function () {",
+                      "    if (pm.response.code !== 204) {",
+                      "        pm.response.to.have.header('Content-Type');",
+                      "        pm.expect(pm.response.headers.get('Content-Type')).to.include('application/json');",
+                      "    }",
+                      "});",
+                      "",
+                      "pm.test('Response is valid JSON', function () {",
+                      "    if (pm.response.code !== 204) {",
+                      "        pm.response.to.be.json;",
+                      "    }",
+                      "});",
+                      "",
+                      "// Validate required fields from response schema",
+                      "pm.test('Required fields are present', function () {",
+                      "    if (pm.response.code === 204) return;",
+                      "    var jsonData = pm.response.json();",
+                      "    pm.expect(jsonData).to.be.an('object');",
+                      "    var keys = Object.keys(jsonData);",
+                      "    if (keys.length === 1 && Array.isArray(jsonData[keys[0]])) {",
+                      "        pm.expect(jsonData[keys[0]]).to.be.an('array');",
+                      "    }",
+                      "});",
+                      "",
+                      "// Validate response field types (non-null required fields)",
+                      "pm.test('Field types are correct', function () {",
+                      "    if (pm.response.code === 204) return;",
+                      "    var jsonData = pm.response.json();",
+                      "    Object.keys(jsonData).forEach(function(key) {",
+                      "        pm.expect(jsonData[key]).to.not.be.undefined;",
+                      "    });",
+                      "});",
+                      "",
+                      "(function() {",
+                      "    var status = pm.response.code;",
+                      "    if (status === 204) return; ",
+                      "    try {",
+                      "        var body = pm.response.json();",
+                      "        pm.test('Response body matches expected structure', function () {",
+                      "            pm.expect(typeof body).to.equal('object');",
+                      "            if (status >= 400) {",
+                      "                pm.expect(body).to.have.property('error');",
+                      "                pm.expect(body).to.have.property('message');",
+                      "            }",
+                      "        });",
+                      "    } catch (e) {}",
+                      "})();"
+                    ]
+                  }
+                }
+              ],
+              "id": "549df43a-46b0-4aaf-a15a-1a7a447c391e",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"paymentId\": \"pay_301\"\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/payments/capture",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "payments",
+                    "capture"
+                  ]
+                }
+              },
+              "response": [
+                {
+                  "id": "6de1725a-3dbc-4cf7-9358-23ec0a6f6826",
+                  "name": "Captured payment",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"paymentId\": \"pay_301\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/payments/capture",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "payments",
+                        "capture"
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"id\": \"pay_301\",\n  \"amount\": 129,\n  \"currency\": \"USD\",\n  \"status\": \"refunded\",\n  \"gatewayReference\": \"gw_auth_301\",\n  \"createdAt\": \"2025-11-02T11:30:31.466Z\",\n  \"updatedAt\": \"1959-12-12T21:16:45.902Z\",\n  \"orderId\": \"ord_201\",\n  \"authorizedAt\": \"1991-01-25T05:55:03.135Z\",\n  \"capturedAt\": \"1964-11-28T11:50:46.703Z\",\n  \"refundedAt\": \"1986-04-06T12:16:57.245Z\"\n}"
+                },
+                {
+                  "id": "78037c74-a76e-4968-b1d4-6383a5e9168d",
+                  "name": "Payment not found",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"paymentId\": \"pay_301\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/payments/capture",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "payments",
+                        "capture"
+                      ]
+                    }
+                  },
+                  "status": "Not Found",
+                  "code": 404,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"error\": \"string\",\n  \"message\": \"string\",\n  \"gatewayStatus\": 401\n}"
+                }
+              ]
+            }
+          ],
+          "id": "a668e0af-0314-4961-9dd2-d5416a9d1cf4"
+        },
+        {
+          "name": "refund",
+          "item": [
+            {
+              "name": "Refund a payment",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "type": "text/javascript",
+                    "exec": [
+                      "// [Contract] Auto-generated contract test assertions",
+                      "",
+                      "pm.test('Status code is successful (2xx)', function () {",
+                      "    pm.response.to.be.success;",
+                      "});",
+                      "",
+                      "pm.test('Response time is acceptable', function () {",
+                      "    var threshold = parseInt(pm.environment.get('RESPONSE_TIME_THRESHOLD') || '2000', 10);",
+                      "    pm.expect(pm.response.responseTime).to.be.below(threshold);",
+                      "});",
+                      "",
+                      "pm.test('Response body is not empty', function () {",
+                      "    if (pm.response.code !== 204) {",
+                      "        var body = pm.response.text();",
+                      "        pm.expect(body.length).to.be.above(0);",
+                      "    }",
+                      "});",
+                      "",
+                      "pm.test('Content-Type is application/json', function () {",
+                      "    if (pm.response.code !== 204) {",
+                      "        pm.response.to.have.header('Content-Type');",
+                      "        pm.expect(pm.response.headers.get('Content-Type')).to.include('application/json');",
+                      "    }",
+                      "});",
+                      "",
+                      "pm.test('Response is valid JSON', function () {",
+                      "    if (pm.response.code !== 204) {",
+                      "        pm.response.to.be.json;",
+                      "    }",
+                      "});",
+                      "",
+                      "// Validate required fields from response schema",
+                      "pm.test('Required fields are present', function () {",
+                      "    if (pm.response.code === 204) return;",
+                      "    var jsonData = pm.response.json();",
+                      "    pm.expect(jsonData).to.be.an('object');",
+                      "    var keys = Object.keys(jsonData);",
+                      "    if (keys.length === 1 && Array.isArray(jsonData[keys[0]])) {",
+                      "        pm.expect(jsonData[keys[0]]).to.be.an('array');",
+                      "    }",
+                      "});",
+                      "",
+                      "// Validate response field types (non-null required fields)",
+                      "pm.test('Field types are correct', function () {",
+                      "    if (pm.response.code === 204) return;",
+                      "    var jsonData = pm.response.json();",
+                      "    Object.keys(jsonData).forEach(function(key) {",
+                      "        pm.expect(jsonData[key]).to.not.be.undefined;",
+                      "    });",
+                      "});",
+                      "",
+                      "(function() {",
+                      "    var status = pm.response.code;",
+                      "    if (status === 204) return; ",
+                      "    try {",
+                      "        var body = pm.response.json();",
+                      "        pm.test('Response body matches expected structure', function () {",
+                      "            pm.expect(typeof body).to.equal('object');",
+                      "            if (status >= 400) {",
+                      "                pm.expect(body).to.have.property('error');",
+                      "                pm.expect(body).to.have.property('message');",
+                      "            }",
+                      "        });",
+                      "    } catch (e) {}",
+                      "})();"
+                    ]
+                  }
+                }
+              ],
+              "id": "92e34521-bb6b-48af-bc77-e6b0a1641bb8",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"paymentId\": \"pay_301\",\n  \"amount\": 42,\n  \"reason\": \"Customer requested a refund.\"\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/payments/refund",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "payments",
+                    "refund"
+                  ]
+                }
+              },
+              "response": [
+                {
+                  "id": "a548d94b-211f-45b6-b948-06e403084c2a",
+                  "name": "Refund record",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"paymentId\": \"pay_301\",\n  \"amount\": 42,\n  \"reason\": \"Customer requested a refund.\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/payments/refund",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "payments",
+                        "refund"
+                      ]
+                    }
+                  },
+                  "status": "Created",
+                  "code": 201,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"id\": \"ref_051\",\n  \"paymentId\": \"pay_301\",\n  \"amount\": 42,\n  \"reason\": \"Size exchange approved.\",\n  \"status\": \"succeeded\",\n  \"createdAt\": \"1990-09-02T03:10:43.269Z\",\n  \"processedAt\": \"2006-12-28T04:00:52.341Z\",\n  \"orderId\": \"ord_201\"\n}"
+                },
+                {
+                  "id": "e7188648-e09f-43b6-9402-ab1deb4cc631",
+                  "name": "Invalid refund payload",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"paymentId\": \"pay_301\",\n  \"amount\": 42,\n  \"reason\": \"Customer requested a refund.\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/payments/refund",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "payments",
+                        "refund"
+                      ]
+                    }
+                  },
+                  "status": "Bad Request",
+                  "code": 400,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"error\": \"string\",\n  \"message\": \"string\",\n  \"gatewayStatus\": 401\n}"
+                },
+                {
+                  "id": "12ad5765-79d7-4d67-943b-54cd346c26d3",
+                  "name": "Gateway refund failed",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"paymentId\": \"pay_301\",\n  \"amount\": 42,\n  \"reason\": \"Customer requested a refund.\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/payments/refund",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "payments",
+                        "refund"
+                      ]
+                    }
+                  },
+                  "status": "Bad Gateway",
+                  "code": 502,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"error\": \"string\",\n  \"message\": \"string\",\n  \"gatewayStatus\": 401\n}"
+                }
+              ]
+            }
+          ],
+          "id": "5c2a7584-3c01-4c7d-85e7-a961ef0f9b20"
+        }
+      ],
+      "id": "25a951c4-ca83-4348-a98b-fffb5bfba13f"
+    },
+    {
+      "name": "admin",
+      "item": [
+        {
+          "name": "health",
+          "item": [
+            {
+              "name": "Get admin health summary",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "type": "text/javascript",
+                    "exec": [
+                      "// [Contract] Auto-generated contract test assertions",
+                      "",
+                      "pm.test('Status code is successful (2xx)', function () {",
+                      "    pm.response.to.be.success;",
+                      "});",
+                      "",
+                      "pm.test('Response time is acceptable', function () {",
+                      "    var threshold = parseInt(pm.environment.get('RESPONSE_TIME_THRESHOLD') || '2000', 10);",
+                      "    pm.expect(pm.response.responseTime).to.be.below(threshold);",
+                      "});",
+                      "",
+                      "pm.test('Response body is not empty', function () {",
+                      "    if (pm.response.code !== 204) {",
+                      "        var body = pm.response.text();",
+                      "        pm.expect(body.length).to.be.above(0);",
+                      "    }",
+                      "});",
+                      "",
+                      "pm.test('Content-Type is application/json', function () {",
+                      "    if (pm.response.code !== 204) {",
+                      "        pm.response.to.have.header('Content-Type');",
+                      "        pm.expect(pm.response.headers.get('Content-Type')).to.include('application/json');",
+                      "    }",
+                      "});",
+                      "",
+                      "pm.test('Response is valid JSON', function () {",
+                      "    if (pm.response.code !== 204) {",
+                      "        pm.response.to.be.json;",
+                      "    }",
+                      "});",
+                      "",
+                      "// Validate required fields from response schema",
+                      "pm.test('Required fields are present', function () {",
+                      "    if (pm.response.code === 204) return;",
+                      "    var jsonData = pm.response.json();",
+                      "    pm.expect(jsonData).to.be.an('object');",
+                      "    var keys = Object.keys(jsonData);",
+                      "    if (keys.length === 1 && Array.isArray(jsonData[keys[0]])) {",
+                      "        pm.expect(jsonData[keys[0]]).to.be.an('array');",
+                      "    }",
+                      "});",
+                      "",
+                      "// Validate response field types (non-null required fields)",
+                      "pm.test('Field types are correct', function () {",
+                      "    if (pm.response.code === 204) return;",
+                      "    var jsonData = pm.response.json();",
+                      "    Object.keys(jsonData).forEach(function(key) {",
+                      "        pm.expect(jsonData[key]).to.not.be.undefined;",
+                      "    });",
+                      "});",
+                      "",
+                      "(function() {",
+                      "    var status = pm.response.code;",
+                      "    if (status === 204) return; ",
+                      "    try {",
+                      "        var body = pm.response.json();",
+                      "        pm.test('Response body matches expected structure', function () {",
+                      "            pm.expect(typeof body).to.equal('object');",
+                      "            if (status >= 400) {",
+                      "                pm.expect(body).to.have.property('error');",
+                      "                pm.expect(body).to.have.property('message');",
+                      "            }",
+                      "        });",
+                      "    } catch (e) {}",
+                      "})();"
+                    ]
+                  }
+                }
+              ],
+              "id": "be5137f6-a436-4005-bcf0-97b58a8ee1b8",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/admin/health",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "admin",
+                    "health"
+                  ]
+                }
+              },
+              "response": [
+                {
+                  "id": "bf93aee9-c5d0-4f11-8370-09495811e2b0",
+                  "name": "Admin health response",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/admin/health",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "admin",
+                        "health"
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"service\": \"admin-service\",\n  \"ok\": true,\n  \"timestamp\": \"2017-08-03T07:02:48.104Z\",\n  \"carts\": 21,\n  \"orders\": 20,\n  \"customers\": 50,\n  \"toggles\": 6\n}"
+                }
+              ]
+            }
+          ],
+          "id": "d288df6c-a2b4-4a60-9e04-464c132cc8bc"
+        },
+        {
+          "name": "reset",
+          "item": [
+            {
+              "name": "Reset toggles and reseed in-memory demo state",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "type": "text/javascript",
+                    "exec": [
+                      "// [Contract] Auto-generated contract test assertions",
+                      "",
+                      "pm.test('Status code is successful (2xx)', function () {",
+                      "    pm.response.to.be.success;",
+                      "});",
+                      "",
+                      "pm.test('Response time is acceptable', function () {",
+                      "    var threshold = parseInt(pm.environment.get('RESPONSE_TIME_THRESHOLD') || '2000', 10);",
+                      "    pm.expect(pm.response.responseTime).to.be.below(threshold);",
+                      "});",
+                      "",
+                      "pm.test('Response body is not empty', function () {",
+                      "    if (pm.response.code !== 204) {",
+                      "        var body = pm.response.text();",
+                      "        pm.expect(body.length).to.be.above(0);",
+                      "    }",
+                      "});",
+                      "",
+                      "pm.test('Content-Type is application/json', function () {",
+                      "    if (pm.response.code !== 204) {",
+                      "        pm.response.to.have.header('Content-Type');",
+                      "        pm.expect(pm.response.headers.get('Content-Type')).to.include('application/json');",
+                      "    }",
+                      "});",
+                      "",
+                      "pm.test('Response is valid JSON', function () {",
+                      "    if (pm.response.code !== 204) {",
+                      "        pm.response.to.be.json;",
+                      "    }",
+                      "});",
+                      "",
+                      "// Validate required fields from response schema",
+                      "pm.test('Required fields are present', function () {",
+                      "    if (pm.response.code === 204) return;",
+                      "    var jsonData = pm.response.json();",
+                      "    pm.expect(jsonData).to.be.an('object');",
+                      "    var keys = Object.keys(jsonData);",
+                      "    if (keys.length === 1 && Array.isArray(jsonData[keys[0]])) {",
+                      "        pm.expect(jsonData[keys[0]]).to.be.an('array');",
+                      "    }",
+                      "});",
+                      "",
+                      "// Validate response field types (non-null required fields)",
+                      "pm.test('Field types are correct', function () {",
+                      "    if (pm.response.code === 204) return;",
+                      "    var jsonData = pm.response.json();",
+                      "    Object.keys(jsonData).forEach(function(key) {",
+                      "        pm.expect(jsonData[key]).to.not.be.undefined;",
+                      "    });",
+                      "});",
+                      "",
+                      "(function() {",
+                      "    var status = pm.response.code;",
+                      "    if (status === 204) return; ",
+                      "    try {",
+                      "        var body = pm.response.json();",
+                      "        pm.test('Response body matches expected structure', function () {",
+                      "            pm.expect(typeof body).to.equal('object');",
+                      "            if (status >= 400) {",
+                      "                pm.expect(body).to.have.property('error');",
+                      "                pm.expect(body).to.have.property('message');",
+                      "            }",
+                      "        });",
+                      "    } catch (e) {}",
+                      "})();"
+                    ]
+                  }
+                }
+              ],
+              "id": "78670107-48d1-4e7e-b6b6-9c15cfcc80f7",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/admin/reset",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "admin",
+                    "reset"
+                  ]
+                }
+              },
+              "response": [
+                {
+                  "id": "54de0b33-f603-49c7-b244-8e370872340c",
+                  "name": "Reset response",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/admin/reset",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "admin",
+                        "reset"
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"reset\": true,\n  \"summary\": {\n    \"products\": 30,\n    \"carts\": 21,\n    \"orders\": 20,\n    \"payments\": 20,\n    \"refunds\": 3,\n    \"customers\": 50\n  },\n  \"toggles\": [\n    {\n      \"key\": \"pii_exposure_enabled\",\n      \"description\": \"string\",\n      \"enabled\": true,\n      \"mode\": \"deterministic\",\n      \"rolloutPercentage\": 30,\n      \"updatedAt\": \"1955-06-16T00:54:44.102Z\"\n    },\n    {\n      \"key\": \"payment_gateway_key_invalid\",\n      \"description\": \"string\",\n      \"enabled\": true,\n      \"mode\": \"intermittent\",\n      \"rolloutPercentage\": 30,\n      \"updatedAt\": \"1961-07-10T00:48:57.942Z\"\n    }\n  ]\n}"
+                }
+              ]
+            }
+          ],
+          "id": "9de39c88-2f03-45e9-8cc8-38a219afde76"
+        },
+        {
+          "name": "toggles",
+          "item": [
+            {
+              "name": "{toggleKey}",
+              "item": [
+                {
+                  "name": "Update an anomaly toggle",
+                  "event": [
+                    {
+                      "listen": "test",
+                      "script": {
+                        "type": "text/javascript",
+                        "exec": [
+                          "// [Contract] Auto-generated contract test assertions",
+                          "",
+                          "pm.test('Status code is successful (2xx)', function () {",
+                          "    pm.response.to.be.success;",
+                          "});",
+                          "",
+                          "pm.test('Response time is acceptable', function () {",
+                          "    var threshold = parseInt(pm.environment.get('RESPONSE_TIME_THRESHOLD') || '2000', 10);",
+                          "    pm.expect(pm.response.responseTime).to.be.below(threshold);",
+                          "});",
+                          "",
+                          "pm.test('Response body is not empty', function () {",
+                          "    if (pm.response.code !== 204) {",
+                          "        var body = pm.response.text();",
+                          "        pm.expect(body.length).to.be.above(0);",
+                          "    }",
+                          "});",
+                          "",
+                          "pm.test('Content-Type is application/json', function () {",
+                          "    if (pm.response.code !== 204) {",
+                          "        pm.response.to.have.header('Content-Type');",
+                          "        pm.expect(pm.response.headers.get('Content-Type')).to.include('application/json');",
+                          "    }",
+                          "});",
+                          "",
+                          "pm.test('Response is valid JSON', function () {",
+                          "    if (pm.response.code !== 204) {",
+                          "        pm.response.to.be.json;",
+                          "    }",
+                          "});",
+                          "",
+                          "// Validate required fields from response schema",
+                          "pm.test('Required fields are present', function () {",
+                          "    if (pm.response.code === 204) return;",
+                          "    var jsonData = pm.response.json();",
+                          "    pm.expect(jsonData).to.be.an('object');",
+                          "    var keys = Object.keys(jsonData);",
+                          "    if (keys.length === 1 && Array.isArray(jsonData[keys[0]])) {",
+                          "        pm.expect(jsonData[keys[0]]).to.be.an('array');",
+                          "    }",
+                          "});",
+                          "",
+                          "// Validate response field types (non-null required fields)",
+                          "pm.test('Field types are correct', function () {",
+                          "    if (pm.response.code === 204) return;",
+                          "    var jsonData = pm.response.json();",
+                          "    Object.keys(jsonData).forEach(function(key) {",
+                          "        pm.expect(jsonData[key]).to.not.be.undefined;",
+                          "    });",
+                          "});",
+                          "",
+                          "(function() {",
+                          "    var status = pm.response.code;",
+                          "    if (status === 204) return; ",
+                          "    try {",
+                          "        var body = pm.response.json();",
+                          "        pm.test('Response body matches expected structure', function () {",
+                          "            pm.expect(typeof body).to.equal('object');",
+                          "            if (status >= 400) {",
+                          "                pm.expect(body).to.have.property('error');",
+                          "                pm.expect(body).to.have.property('message');",
+                          "            }",
+                          "        });",
+                          "    } catch (e) {}",
+                          "})();"
+                        ]
+                      }
+                    }
+                  ],
+                  "id": "c822bdb5-1f7c-419a-b4cc-d6ab37c534ca",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"enabled\": false,\n  \"value\": \"true\",\n  \"mode\": \"deterministic\",\n  \"rolloutPercentage\": 30\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/admin/toggles/:toggleKey",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "admin",
+                        "toggles",
+                        ":toggleKey"
+                      ],
+                      "variable": [
+                        {
+                          "key": "toggleKey",
+                          "value": "orders_v2_deployed"
+                        }
+                      ]
+                    }
+                  },
+                  "response": [
+                    {
+                      "id": "b4176df1-25bb-4716-9291-f013eccdaaa0",
+                      "name": "Updated toggle",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"enabled\": false,\n  \"value\": \"true\",\n  \"mode\": \"deterministic\",\n  \"rolloutPercentage\": 30\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/admin/toggles/:toggleKey",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "admin",
+                            "toggles",
+                            ":toggleKey"
+                          ],
+                          "variable": [
+                            {
+                              "key": "toggleKey",
+                              "value": "orders_v2_deployed"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"key\": \"checkout_outage\",\n  \"description\": \"string\",\n  \"enabled\": true,\n  \"mode\": \"deterministic\",\n  \"rolloutPercentage\": 30,\n  \"updatedAt\": \"1953-10-17T19:26:50.387Z\"\n}"
+                    },
+                    {
+                      "id": "9602373c-3299-4cdb-a616-41ccaefd3815",
+                      "name": "Invalid toggle payload",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"enabled\": false,\n  \"value\": \"true\",\n  \"mode\": \"deterministic\",\n  \"rolloutPercentage\": 30\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/admin/toggles/:toggleKey",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "admin",
+                            "toggles",
+                            ":toggleKey"
+                          ],
+                          "variable": [
+                            {
+                              "key": "toggleKey",
+                              "value": "orders_v2_deployed"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Bad Request",
+                      "code": 400,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"error\": \"string\",\n  \"message\": \"string\",\n  \"gatewayStatus\": 401\n}"
+                    },
+                    {
+                      "id": "10a86ad3-fc6d-4248-a1ed-f0f01864df00",
+                      "name": "Unknown toggle",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"enabled\": false,\n  \"value\": \"true\",\n  \"mode\": \"deterministic\",\n  \"rolloutPercentage\": 30\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/admin/toggles/:toggleKey",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "admin",
+                            "toggles",
+                            ":toggleKey"
+                          ],
+                          "variable": [
+                            {
+                              "key": "toggleKey",
+                              "value": "orders_v2_deployed"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Not Found",
+                      "code": 404,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"error\": \"string\",\n  \"message\": \"string\",\n  \"gatewayStatus\": 401\n}"
+                    }
+                  ]
+                }
+              ],
+              "id": "9a14d9ef-321e-4774-b7d1-8ae2ef6f4320"
+            },
+            {
+              "name": "List anomaly toggles",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "type": "text/javascript",
+                    "exec": [
+                      "// [Contract] Auto-generated contract test assertions",
+                      "",
+                      "pm.test('Status code is successful (2xx)', function () {",
+                      "    pm.response.to.be.success;",
+                      "});",
+                      "",
+                      "pm.test('Response time is acceptable', function () {",
+                      "    var threshold = parseInt(pm.environment.get('RESPONSE_TIME_THRESHOLD') || '2000', 10);",
+                      "    pm.expect(pm.response.responseTime).to.be.below(threshold);",
+                      "});",
+                      "",
+                      "pm.test('Response body is not empty', function () {",
+                      "    if (pm.response.code !== 204) {",
+                      "        var body = pm.response.text();",
+                      "        pm.expect(body.length).to.be.above(0);",
+                      "    }",
+                      "});",
+                      "",
+                      "pm.test('Content-Type is application/json', function () {",
+                      "    if (pm.response.code !== 204) {",
+                      "        pm.response.to.have.header('Content-Type');",
+                      "        pm.expect(pm.response.headers.get('Content-Type')).to.include('application/json');",
+                      "    }",
+                      "});",
+                      "",
+                      "pm.test('Response is valid JSON', function () {",
+                      "    if (pm.response.code !== 204) {",
+                      "        pm.response.to.be.json;",
+                      "    }",
+                      "});",
+                      "",
+                      "// Validate required fields from response schema",
+                      "pm.test('Required fields are present', function () {",
+                      "    if (pm.response.code === 204) return;",
+                      "    var jsonData = pm.response.json();",
+                      "    pm.expect(jsonData).to.be.an('object');",
+                      "    var keys = Object.keys(jsonData);",
+                      "    if (keys.length === 1 && Array.isArray(jsonData[keys[0]])) {",
+                      "        pm.expect(jsonData[keys[0]]).to.be.an('array');",
+                      "    }",
+                      "});",
+                      "",
+                      "// Validate response field types (non-null required fields)",
+                      "pm.test('Field types are correct', function () {",
+                      "    if (pm.response.code === 204) return;",
+                      "    var jsonData = pm.response.json();",
+                      "    Object.keys(jsonData).forEach(function(key) {",
+                      "        pm.expect(jsonData[key]).to.not.be.undefined;",
+                      "    });",
+                      "});",
+                      "",
+                      "(function() {",
+                      "    var status = pm.response.code;",
+                      "    if (status === 204) return; ",
+                      "    try {",
+                      "        var body = pm.response.json();",
+                      "        pm.test('Response body matches expected structure', function () {",
+                      "            pm.expect(typeof body).to.equal('object');",
+                      "            if (status >= 400) {",
+                      "                pm.expect(body).to.have.property('error');",
+                      "                pm.expect(body).to.have.property('message');",
+                      "            }",
+                      "        });",
+                      "    } catch (e) {}",
+                      "})();"
+                    ]
+                  }
+                }
+              ],
+              "id": "88b2dda5-302b-4533-880b-028c7f76b464",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/admin/toggles",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "admin",
+                    "toggles"
+                  ]
+                }
+              },
+              "response": [
+                {
+                  "id": "ef35915d-4174-4c0b-b3d3-59d5982c1b70",
+                  "name": "Toggle list",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/admin/toggles",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "admin",
+                        "toggles"
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"items\": [\n    {\n      \"key\": \"payment_gateway_key_invalid\",\n      \"description\": \"string\",\n      \"enabled\": false,\n      \"mode\": \"intermittent\",\n      \"rolloutPercentage\": 30,\n      \"updatedAt\": \"2004-11-16T12:44:42.801Z\"\n    },\n    {\n      \"key\": \"orders_v2_deployed\",\n      \"description\": \"string\",\n      \"enabled\": false,\n      \"mode\": \"intermittent\",\n      \"rolloutPercentage\": 30,\n      \"updatedAt\": \"1984-08-23T06:29:11.913Z\"\n    }\n  ]\n}"
+                }
+              ]
+            }
+          ],
+          "id": "0226262d-5ae1-4d12-8f25-9980024a1e3b"
+        },
+        {
+          "name": "orders",
+          "item": [
+            {
+              "name": "{id}",
+              "item": [
+                {
+                  "name": "history",
+                  "item": [
+                    {
+                      "name": "Get order history from the admin surface",
+                      "event": [
+                        {
+                          "listen": "test",
+                          "script": {
+                            "type": "text/javascript",
+                            "exec": [
+                              "// [Contract] Auto-generated contract test assertions",
+                              "",
+                              "pm.test('Status code is successful (2xx)', function () {",
+                              "    pm.response.to.be.success;",
+                              "});",
+                              "",
+                              "pm.test('Response time is acceptable', function () {",
+                              "    var threshold = parseInt(pm.environment.get('RESPONSE_TIME_THRESHOLD') || '2000', 10);",
+                              "    pm.expect(pm.response.responseTime).to.be.below(threshold);",
+                              "});",
+                              "",
+                              "pm.test('Response body is not empty', function () {",
+                              "    if (pm.response.code !== 204) {",
+                              "        var body = pm.response.text();",
+                              "        pm.expect(body.length).to.be.above(0);",
+                              "    }",
+                              "});",
+                              "",
+                              "pm.test('Content-Type is application/json', function () {",
+                              "    if (pm.response.code !== 204) {",
+                              "        pm.response.to.have.header('Content-Type');",
+                              "        pm.expect(pm.response.headers.get('Content-Type')).to.include('application/json');",
+                              "    }",
+                              "});",
+                              "",
+                              "pm.test('Response is valid JSON', function () {",
+                              "    if (pm.response.code !== 204) {",
+                              "        pm.response.to.be.json;",
+                              "    }",
+                              "});",
+                              "",
+                              "// Validate required fields from response schema",
+                              "pm.test('Required fields are present', function () {",
+                              "    if (pm.response.code === 204) return;",
+                              "    var jsonData = pm.response.json();",
+                              "    pm.expect(jsonData).to.be.an('object');",
+                              "    var keys = Object.keys(jsonData);",
+                              "    if (keys.length === 1 && Array.isArray(jsonData[keys[0]])) {",
+                              "        pm.expect(jsonData[keys[0]]).to.be.an('array');",
+                              "    }",
+                              "});",
+                              "",
+                              "// Validate response field types (non-null required fields)",
+                              "pm.test('Field types are correct', function () {",
+                              "    if (pm.response.code === 204) return;",
+                              "    var jsonData = pm.response.json();",
+                              "    Object.keys(jsonData).forEach(function(key) {",
+                              "        pm.expect(jsonData[key]).to.not.be.undefined;",
+                              "    });",
+                              "});",
+                              "",
+                              "(function() {",
+                              "    var status = pm.response.code;",
+                              "    if (status === 204) return; ",
+                              "    try {",
+                              "        var body = pm.response.json();",
+                              "        pm.test('Response body matches expected structure', function () {",
+                              "            pm.expect(typeof body).to.equal('object');",
+                              "            if (status >= 400) {",
+                              "                pm.expect(body).to.have.property('error');",
+                              "                pm.expect(body).to.have.property('message');",
+                              "            }",
+                              "        });",
+                              "    } catch (e) {}",
+                              "})();"
+                            ]
+                          }
+                        }
+                      ],
+                      "id": "aa2b2d83-1977-46c9-b2cd-fe20e15a85b6",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "description": "Defaults to demo-admin-token when auth is enabled.",
+                            "key": "x-admin-token",
+                            "value": "string"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/admin/orders/:id/history",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "admin",
+                            "orders",
+                            ":id",
+                            "history"
+                          ],
+                          "variable": [
+                            {
+                              "key": "id",
+                              "value": "string"
+                            }
+                          ]
+                        }
+                      },
+                      "response": [
+                        {
+                          "id": "bf4264da-f170-4cc7-ba48-c978aa4a510b",
+                          "name": "Admin order history",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "description": "Defaults to demo-admin-token when auth is enabled.",
+                                "key": "x-admin-token",
+                                "value": "string"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/admin/orders/:id/history",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "admin",
+                                "orders",
+                                ":id",
+                                "history"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "id",
+                                  "value": "string"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "OK",
+                          "code": 200,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"order\": {\n    \"id\": \"ord_011\",\n    \"orderNumber\": \"DC-260111\",\n    \"customerId\": \"cust_011\",\n    \"cartId\": \"cart_hist_011\",\n    \"status\": \"string\",\n    \"amount\": 118,\n    \"currencyCode\": \"USD\",\n    \"sourceVersion\": \"seed\",\n    \"createdAt\": \"1978-01-18T12:01:55.659Z\",\n    \"updatedAt\": \"1987-11-17T09:31:21.710Z\"\n  },\n  \"history\": [\n    {\n      \"id\": \"hist_1001\",\n      \"type\": \"refunded\",\n      \"status\": \"authorized\",\n      \"actor\": \"support\",\n      \"message\": \"string\",\n      \"timestamp\": \"1954-07-30T23:31:08.444Z\"\n    },\n    {\n      \"id\": \"hist_1001\",\n      \"type\": \"refunded\",\n      \"status\": \"paid\",\n      \"actor\": \"support\",\n      \"message\": \"string\",\n      \"timestamp\": \"2020-06-13T20:47:11.310Z\"\n    }\n  ]\n}"
+                        },
+                        {
+                          "id": "59d2264a-d53f-49f7-b812-bb5d33116232",
+                          "name": "Admin auth required",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "description": "Defaults to demo-admin-token when auth is enabled.",
+                                "key": "x-admin-token",
+                                "value": "string"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/admin/orders/:id/history",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "admin",
+                                "orders",
+                                ":id",
+                                "history"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "id",
+                                  "value": "string"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Unauthorized",
+                          "code": 401,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"error\": \"string\",\n  \"message\": \"string\",\n  \"gatewayStatus\": 401\n}"
+                        },
+                        {
+                          "id": "f42c46c2-1209-4e22-9e7d-6a2b11f00492",
+                          "name": "Order not found",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "description": "Defaults to demo-admin-token when auth is enabled.",
+                                "key": "x-admin-token",
+                                "value": "string"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/admin/orders/:id/history",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "admin",
+                                "orders",
+                                ":id",
+                                "history"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "id",
+                                  "value": "string"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Not Found",
+                          "code": 404,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"error\": \"string\",\n  \"message\": \"string\",\n  \"gatewayStatus\": 401\n}"
+                        }
+                      ]
+                    }
+                  ],
+                  "id": "f83717bd-980c-463f-b97e-5e2c279ecaa8"
+                },
+                {
+                  "name": "Get an order from the admin surface",
+                  "event": [
+                    {
+                      "listen": "test",
+                      "script": {
+                        "type": "text/javascript",
+                        "exec": [
+                          "// [Contract] Auto-generated contract test assertions",
+                          "",
+                          "pm.test('Status code is successful (2xx)', function () {",
+                          "    pm.response.to.be.success;",
+                          "});",
+                          "",
+                          "pm.test('Response time is acceptable', function () {",
+                          "    var threshold = parseInt(pm.environment.get('RESPONSE_TIME_THRESHOLD') || '2000', 10);",
+                          "    pm.expect(pm.response.responseTime).to.be.below(threshold);",
+                          "});",
+                          "",
+                          "pm.test('Response body is not empty', function () {",
+                          "    if (pm.response.code !== 204) {",
+                          "        var body = pm.response.text();",
+                          "        pm.expect(body.length).to.be.above(0);",
+                          "    }",
+                          "});",
+                          "",
+                          "pm.test('Content-Type is application/json', function () {",
+                          "    if (pm.response.code !== 204) {",
+                          "        pm.response.to.have.header('Content-Type');",
+                          "        pm.expect(pm.response.headers.get('Content-Type')).to.include('application/json');",
+                          "    }",
+                          "});",
+                          "",
+                          "pm.test('Response is valid JSON', function () {",
+                          "    if (pm.response.code !== 204) {",
+                          "        pm.response.to.be.json;",
+                          "    }",
+                          "});",
+                          "",
+                          "// Validate required fields from response schema",
+                          "pm.test('Required fields are present', function () {",
+                          "    if (pm.response.code === 204) return;",
+                          "    var jsonData = pm.response.json();",
+                          "    pm.expect(jsonData).to.be.an('object');",
+                          "    var keys = Object.keys(jsonData);",
+                          "    if (keys.length === 1 && Array.isArray(jsonData[keys[0]])) {",
+                          "        pm.expect(jsonData[keys[0]]).to.be.an('array');",
+                          "    }",
+                          "});",
+                          "",
+                          "// Validate response field types (non-null required fields)",
+                          "pm.test('Field types are correct', function () {",
+                          "    if (pm.response.code === 204) return;",
+                          "    var jsonData = pm.response.json();",
+                          "    Object.keys(jsonData).forEach(function(key) {",
+                          "        pm.expect(jsonData[key]).to.not.be.undefined;",
+                          "    });",
+                          "});",
+                          "",
+                          "(function() {",
+                          "    var status = pm.response.code;",
+                          "    if (status === 204) return; ",
+                          "    try {",
+                          "        var body = pm.response.json();",
+                          "        pm.test('Response body matches expected structure', function () {",
+                          "            pm.expect(typeof body).to.equal('object');",
+                          "            if (status >= 400) {",
+                          "                pm.expect(body).to.have.property('error');",
+                          "                pm.expect(body).to.have.property('message');",
+                          "            }",
+                          "        });",
+                          "    } catch (e) {}",
+                          "})();"
+                        ]
+                      }
+                    }
+                  ],
+                  "id": "6c440ec4-91cd-4102-835d-a4faca191d49",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "description": "Defaults to demo-admin-token when auth is enabled.",
+                        "key": "x-admin-token",
+                        "value": "string"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/admin/orders/:id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "admin",
+                        "orders",
+                        ":id"
+                      ],
+                      "variable": [
+                        {
+                          "key": "id",
+                          "value": "string"
+                        }
+                      ]
+                    },
+                    "description": "Requires x-admin-token unless admin_auth_disabled is enabled."
+                  },
+                  "response": [
+                    {
+                      "id": "5effde68-1bab-47b1-b619-50708f8c9e5c",
+                      "name": "Admin order payload",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "description": "Defaults to demo-admin-token when auth is enabled.",
+                            "key": "x-admin-token",
+                            "value": "string"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/admin/orders/:id",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "admin",
+                            "orders",
+                            ":id"
+                          ],
+                          "variable": [
+                            {
+                              "key": "id",
+                              "value": "string"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"id\": \"ord_011\",\n  \"orderNumber\": \"DC-260111\",\n  \"customerId\": \"cust_011\",\n  \"cartId\": \"cart_hist_011\",\n  \"status\": \"string\",\n  \"amount\": 118,\n  \"currencyCode\": \"USD\",\n  \"sourceVersion\": \"v2\",\n  \"createdAt\": \"1978-09-26T11:26:57.425Z\",\n  \"updatedAt\": \"1946-11-10T17:42:09.627Z\"\n}"
+                    },
+                    {
+                      "id": "f07a4991-3e20-4d3c-82a6-c2fb847457cf",
+                      "name": "Admin auth required",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "description": "Defaults to demo-admin-token when auth is enabled.",
+                            "key": "x-admin-token",
+                            "value": "string"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/admin/orders/:id",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "admin",
+                            "orders",
+                            ":id"
+                          ],
+                          "variable": [
+                            {
+                              "key": "id",
+                              "value": "string"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Unauthorized",
+                      "code": 401,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"error\": \"string\",\n  \"message\": \"string\",\n  \"gatewayStatus\": 401\n}"
+                    },
+                    {
+                      "id": "5c8c0b5b-c2c7-407b-a579-d439cdbae61d",
+                      "name": "Order not found",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "description": "Defaults to demo-admin-token when auth is enabled.",
+                            "key": "x-admin-token",
+                            "value": "string"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/admin/orders/:id",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "admin",
+                            "orders",
+                            ":id"
+                          ],
+                          "variable": [
+                            {
+                              "key": "id",
+                              "value": "string"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Not Found",
+                      "code": 404,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"error\": \"string\",\n  \"message\": \"string\",\n  \"gatewayStatus\": 401\n}"
+                    }
+                  ]
+                }
+              ],
+              "id": "3cde6af8-4697-49ea-a70b-80c9b4aa2e0b"
+            }
+          ],
+          "id": "2b2d5a29-1173-4a5d-9152-753ea7fb131f"
+        }
+      ],
+      "id": "9e52b85a-497e-427b-a3e5-71c93705dcdd"
+    },
+    {
+      "name": "00 - Resolve Secrets",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "if (pm.environment.get(\"CI\") === \"true\") { return; }",
+              "const body = pm.response.json();",
+              "if (body.SecretString) {",
+              "  const secrets = JSON.parse(body.SecretString);",
+              "  Object.entries(secrets).forEach(([k, v]) => pm.collectionVariables.set(k, v));",
+              "}"
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ],
+      "id": "0c612240-2b4f-47c6-b7bf-06d82d45aa3d",
+      "request": {
+        "auth": {
+          "type": "awsv4",
+          "awsv4": [
+            {
+              "key": "accessKey",
+              "value": "{{AWS_ACCESS_KEY_ID}}",
+              "type": "string"
+            },
+            {
+              "key": "secretKey",
+              "value": "{{AWS_SECRET_ACCESS_KEY}}",
+              "type": "string"
+            },
+            {
+              "key": "region",
+              "value": "{{AWS_REGION}}",
+              "type": "string"
+            },
+            {
+              "key": "service",
+              "value": "secretsmanager",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "POST",
+        "header": [
+          {
+            "key": "X-Amz-Target",
+            "value": "secretsmanager.GetSecretValue"
+          },
+          {
+            "key": "Content-Type",
+            "value": "application/x-amz-json-1.1"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\"SecretId\": \"{{AWS_SECRET_NAME}}\"}"
+        },
+        "url": {
+          "raw": "https://secretsmanager.{{AWS_REGION}}.amazonaws.com",
+          "protocol": "https",
+          "host": [
+            "secretsmanager",
+            "{{AWS_REGION}}",
+            "amazonaws",
+            "com"
+          ]
+        }
+      },
+      "response": []
+    }
+  ],
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "http://localhost:3000"
+    }
+  ]
+}
