@@ -1,0 +1,1692 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "demo-commerce API",
+    "version": "0.1.0",
+    "description": "Unified generated OpenAPI document for the demo-commerce platform."
+  },
+  "servers": [
+    {
+      "url": "http://localhost:3000",
+      "description": "demo-commerce"
+    }
+  ],
+  "tags": [
+    {
+      "name": "Catalog",
+      "description": "Seeded product catalog operations."
+    },
+    {
+      "name": "Health",
+      "description": "Service health checks."
+    },
+    {
+      "name": "Cart",
+      "description": "Create and manage carts."
+    },
+    {
+      "name": "Orders",
+      "description": "Public production order contract served from /orders."
+    },
+    {
+      "name": "Payments",
+      "description": "Authorize, capture, and refund payments."
+    },
+    {
+      "name": "Admin",
+      "description": "Demo control plane and reset operations."
+    },
+    {
+      "name": "Admin Orders",
+      "description": "Protected or bypassable admin order inspection endpoints."
+    }
+  ],
+  "paths": {
+    "/products": {
+      "get": {
+        "operationId": "listProducts",
+        "tags": [
+          "Catalog"
+        ],
+        "summary": "List products",
+        "description": "Returns the seeded demo product catalog.",
+        "responses": {
+          "200": {
+            "description": "Product catalog response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/catalog_ProductListResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/products/{id}": {
+      "get": {
+        "operationId": "getProductById",
+        "tags": [
+          "Catalog"
+        ],
+        "summary": "Get a product by id",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Seeded product id such as prod_001."
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Product detail",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/catalog_Product"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Product not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/cart": {
+      "post": {
+        "operationId": "createCart",
+        "tags": [
+          "Cart"
+        ],
+        "summary": "Create a cart",
+        "requestBody": {
+          "required": false,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/cart_CreateCartRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Created cart",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/cart_Cart"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/cart/{id}/items": {
+      "post": {
+        "operationId": "addCartItem",
+        "tags": [
+          "Cart"
+        ],
+        "summary": "Add an item to a cart",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Cart id."
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/cart_AddCartItemRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Updated cart",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/cart_Cart"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid product id payload",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Cart or product not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/cart/{id}": {
+      "get": {
+        "operationId": "getCartById",
+        "tags": [
+          "Cart"
+        ],
+        "summary": "Get a cart by id",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Cart id."
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Cart detail",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/cart_Cart"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Cart not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/orders": {
+      "post": {
+        "operationId": "createOrder",
+        "tags": [
+          "Orders"
+        ],
+        "summary": "Create an order using the public production contract",
+        "description": "Consumer-facing contract for the production /orders route. The documented request uses total_price and currency_code.",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/orders_CreateOrderRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Created order in the public response format",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/orders_Order"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid order payload",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Checkout or intermittent failure toggles triggered",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/orders/{id}": {
+      "get": {
+        "operationId": "getOrderById",
+        "tags": [
+          "Orders"
+        ],
+        "summary": "Get an order by id from the production route",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Order in the public response format",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/orders_Order"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Order not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/orders/{id}/history": {
+      "get": {
+        "operationId": "getOrderHistory",
+        "tags": [
+          "Orders"
+        ],
+        "summary": "Get order history from the production route",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Order history response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/orders_OrderHistoryResponse"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Order not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/payments/authorize": {
+      "post": {
+        "operationId": "authorizePayment",
+        "tags": [
+          "Payments"
+        ],
+        "summary": "Authorize a payment",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/payments_AuthorizePaymentRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Authorized payment",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/payments_Payment"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid payment authorization payload",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "502": {
+            "description": "Gateway authorization failed",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/payments/capture": {
+      "post": {
+        "operationId": "capturePayment",
+        "tags": [
+          "Payments"
+        ],
+        "summary": "Capture a payment",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/payments_CapturePaymentRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Captured payment",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/payments_Payment"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Payment not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/payments/refund": {
+      "post": {
+        "operationId": "refundPayment",
+        "tags": [
+          "Payments"
+        ],
+        "summary": "Refund a payment",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/payments_RefundPaymentRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Refund record",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/payments_Refund"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid refund payload",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "502": {
+            "description": "Gateway refund failed",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/admin/health": {
+      "get": {
+        "operationId": "getAdminHealth",
+        "tags": [
+          "Health"
+        ],
+        "summary": "Get admin health summary",
+        "responses": {
+          "200": {
+            "description": "Admin health response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/admin_AdminHealthResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/admin/reset": {
+      "post": {
+        "operationId": "resetAdminDemoState",
+        "tags": [
+          "Admin"
+        ],
+        "summary": "Reset toggles and reseed in-memory demo state",
+        "responses": {
+          "200": {
+            "description": "Reset response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/admin_ResetResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/admin/toggles": {
+      "get": {
+        "operationId": "listAdminToggles",
+        "tags": [
+          "Admin"
+        ],
+        "summary": "List anomaly toggles",
+        "responses": {
+          "200": {
+            "description": "Toggle list",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/admin_ToggleListResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/admin/toggles/{toggleKey}": {
+      "post": {
+        "operationId": "updateAdminToggle",
+        "tags": [
+          "Admin"
+        ],
+        "summary": "Update an anomaly toggle",
+        "parameters": [
+          {
+            "name": "toggleKey",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "checkout_outage",
+                "orders_v2_deployed",
+                "admin_auth_disabled",
+                "pii_exposure_enabled",
+                "payment_gateway_key_invalid",
+                "intermittent_order_failures"
+              ]
+            }
+          }
+        ],
+        "requestBody": {
+          "required": false,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/admin_ToggleUpdateRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Updated toggle",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/admin_Toggle"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid toggle payload",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Unknown toggle",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/admin/orders/{id}": {
+      "get": {
+        "operationId": "getAdminOrderById",
+        "tags": [
+          "Admin Orders"
+        ],
+        "summary": "Get an order from the admin surface",
+        "description": "Requires x-admin-token unless admin_auth_disabled is enabled.",
+        "parameters": [
+          {
+            "name": "x-admin-token",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Defaults to demo-admin-token when auth is enabled."
+          },
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Admin order payload",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/admin_AdminOrder"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Admin auth required",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Order not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/admin/orders/{id}/history": {
+      "get": {
+        "operationId": "getAdminOrderHistory",
+        "tags": [
+          "Admin Orders"
+        ],
+        "summary": "Get order history from the admin surface",
+        "parameters": [
+          {
+            "name": "x-admin-token",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Defaults to demo-admin-token when auth is enabled."
+          },
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Admin order history",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/admin_AdminOrderHistoryResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Admin auth required",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Order not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "HealthResponse": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "service",
+          "ok",
+          "timestamp"
+        ],
+        "properties": {
+          "service": {
+            "type": "string"
+          },
+          "ok": {
+            "type": "boolean",
+            "example": true
+          },
+          "timestamp": {
+            "type": "string",
+            "format": "date-time"
+          }
+        }
+      },
+      "ErrorResponse": {
+        "type": "object",
+        "additionalProperties": true,
+        "required": [
+          "error",
+          "message"
+        ],
+        "properties": {
+          "error": {
+            "type": "string"
+          },
+          "message": {
+            "type": "string"
+          },
+          "gatewayStatus": {
+            "type": "integer",
+            "example": 401
+          }
+        }
+      },
+      "catalog_Product": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "id",
+          "sku",
+          "slug",
+          "name",
+          "description",
+          "category",
+          "price",
+          "currency",
+          "inventory",
+          "featured"
+        ],
+        "properties": {
+          "id": {
+            "type": "string",
+            "example": "prod_001"
+          },
+          "sku": {
+            "type": "string",
+            "example": "SKU-0001"
+          },
+          "slug": {
+            "type": "string",
+            "example": "nimbus-running-shoe"
+          },
+          "name": {
+            "type": "string",
+            "example": "Nimbus Running Shoe"
+          },
+          "description": {
+            "type": "string"
+          },
+          "category": {
+            "type": "string",
+            "example": "Footwear"
+          },
+          "price": {
+            "type": "number",
+            "example": 129
+          },
+          "currency": {
+            "type": "string",
+            "enum": [
+              "USD"
+            ]
+          },
+          "inventory": {
+            "type": "integer",
+            "minimum": 0,
+            "example": 28
+          },
+          "featured": {
+            "type": "boolean",
+            "example": true
+          }
+        }
+      },
+      "catalog_ProductListResponse": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "items",
+          "count"
+        ],
+        "properties": {
+          "items": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/catalog_Product"
+            }
+          },
+          "count": {
+            "type": "integer",
+            "minimum": 0,
+            "example": 30
+          }
+        }
+      },
+      "cart_CartItem": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "productId",
+          "productName",
+          "quantity",
+          "unitPrice",
+          "lineTotal"
+        ],
+        "properties": {
+          "productId": {
+            "type": "string",
+            "example": "prod_001"
+          },
+          "productName": {
+            "type": "string",
+            "example": "Nimbus Running Shoe"
+          },
+          "quantity": {
+            "type": "integer",
+            "minimum": 1,
+            "example": 2
+          },
+          "unitPrice": {
+            "type": "number",
+            "example": 129
+          },
+          "lineTotal": {
+            "type": "number",
+            "example": 258
+          }
+        }
+      },
+      "cart_Cart": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "id",
+          "status",
+          "currency",
+          "items",
+          "subtotal",
+          "createdAt",
+          "updatedAt"
+        ],
+        "properties": {
+          "id": {
+            "type": "string",
+            "example": "cart_201"
+          },
+          "customerId": {
+            "type": "string",
+            "example": "cust_005"
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "active",
+              "converted",
+              "abandoned"
+            ]
+          },
+          "currency": {
+            "type": "string",
+            "enum": [
+              "USD"
+            ]
+          },
+          "items": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/cart_CartItem"
+            }
+          },
+          "subtotal": {
+            "type": "number",
+            "example": 258
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "updatedAt": {
+            "type": "string",
+            "format": "date-time"
+          }
+        }
+      },
+      "cart_CreateCartRequest": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "customerId": {
+            "type": "string",
+            "example": "cust_005"
+          },
+          "currency": {
+            "type": "string",
+            "enum": [
+              "USD"
+            ]
+          }
+        }
+      },
+      "cart_AddCartItemRequest": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "productId"
+        ],
+        "properties": {
+          "productId": {
+            "type": "string",
+            "example": "prod_001"
+          },
+          "quantity": {
+            "type": "integer",
+            "minimum": 1,
+            "example": 1
+          }
+        }
+      },
+      "orders_OrderHistoryEvent": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "id",
+          "type",
+          "status",
+          "actor",
+          "message",
+          "timestamp"
+        ],
+        "properties": {
+          "id": {
+            "type": "string",
+            "example": "hist_1001"
+          },
+          "type": {
+            "type": "string",
+            "enum": [
+              "created",
+              "payment_authorized",
+              "payment_captured",
+              "fulfilled",
+              "refunded"
+            ]
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "pending",
+              "authorized",
+              "paid",
+              "fulfilled",
+              "refunded"
+            ]
+          },
+          "actor": {
+            "type": "string",
+            "example": "orders-service"
+          },
+          "message": {
+            "type": "string"
+          },
+          "timestamp": {
+            "type": "string",
+            "format": "date-time"
+          }
+        }
+      },
+      "orders_CreateOrderRequest": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "customerId",
+          "cartId",
+          "total_price"
+        ],
+        "properties": {
+          "customerId": {
+            "type": "string",
+            "example": "demo-customer-42",
+            "description": "Public v1-shaped request contract used by external consumers."
+          },
+          "cartId": {
+            "type": "string",
+            "example": "cart_201"
+          },
+          "total_price": {
+            "type": "number",
+            "example": 129
+          },
+          "currency_code": {
+            "type": "string",
+            "enum": [
+              "USD"
+            ],
+            "example": "USD"
+          }
+        }
+      },
+      "orders_Order": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "id",
+          "order_number",
+          "customerId",
+          "cartId",
+          "status",
+          "total_price",
+          "currency_code",
+          "created_at",
+          "updated_at"
+        ],
+        "properties": {
+          "id": {
+            "type": "string",
+            "example": "ord_201"
+          },
+          "order_number": {
+            "type": "string",
+            "example": "DC-260301"
+          },
+          "customerId": {
+            "type": "string",
+            "example": "demo-customer-42",
+            "description": "Loose string validation in v1."
+          },
+          "cartId": {
+            "type": "string",
+            "example": "cart_201"
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "pending",
+              "authorized",
+              "paid",
+              "fulfilled",
+              "refunded"
+            ]
+          },
+          "total_price": {
+            "type": "number",
+            "example": 129
+          },
+          "currency_code": {
+            "type": "string",
+            "enum": [
+              "USD"
+            ],
+            "example": "USD"
+          },
+          "created_at": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "updated_at": {
+            "type": "string",
+            "format": "date-time"
+          }
+        }
+      },
+      "orders_OrderHistoryResponse": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "order",
+          "history"
+        ],
+        "properties": {
+          "order": {
+            "$ref": "#/components/schemas/orders_Order"
+          },
+          "history": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/orders_OrderHistoryEvent"
+            }
+          }
+        }
+      },
+      "payments_Payment": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "id",
+          "amount",
+          "currency",
+          "status",
+          "gatewayReference",
+          "createdAt",
+          "updatedAt"
+        ],
+        "properties": {
+          "id": {
+            "type": "string",
+            "example": "pay_301"
+          },
+          "orderId": {
+            "type": "string",
+            "example": "ord_201"
+          },
+          "amount": {
+            "type": "number",
+            "example": 129
+          },
+          "currency": {
+            "type": "string",
+            "enum": [
+              "USD"
+            ]
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "authorized",
+              "captured",
+              "refunded",
+              "failed"
+            ]
+          },
+          "gatewayReference": {
+            "type": "string",
+            "example": "gw_auth_301"
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "updatedAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "authorizedAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "capturedAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "refundedAt": {
+            "type": "string",
+            "format": "date-time"
+          }
+        }
+      },
+      "payments_Refund": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "id",
+          "paymentId",
+          "amount",
+          "reason",
+          "status",
+          "createdAt",
+          "processedAt"
+        ],
+        "properties": {
+          "id": {
+            "type": "string",
+            "example": "ref_051"
+          },
+          "paymentId": {
+            "type": "string",
+            "example": "pay_301"
+          },
+          "orderId": {
+            "type": "string",
+            "example": "ord_201"
+          },
+          "amount": {
+            "type": "number",
+            "example": 42
+          },
+          "reason": {
+            "type": "string",
+            "example": "Size exchange approved."
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "succeeded"
+            ]
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "processedAt": {
+            "type": "string",
+            "format": "date-time"
+          }
+        }
+      },
+      "payments_AuthorizePaymentRequest": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "orderId",
+          "amount"
+        ],
+        "properties": {
+          "orderId": {
+            "type": "string",
+            "example": "ord_201"
+          },
+          "amount": {
+            "type": "number",
+            "minimum": 0.01,
+            "example": 129
+          },
+          "currency": {
+            "type": "string",
+            "enum": [
+              "USD"
+            ],
+            "example": "USD"
+          }
+        }
+      },
+      "payments_CapturePaymentRequest": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "paymentId"
+        ],
+        "properties": {
+          "paymentId": {
+            "type": "string",
+            "example": "pay_301"
+          }
+        }
+      },
+      "payments_RefundPaymentRequest": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "paymentId",
+          "amount"
+        ],
+        "properties": {
+          "paymentId": {
+            "type": "string",
+            "example": "pay_301"
+          },
+          "amount": {
+            "type": "number",
+            "minimum": 0.01,
+            "example": 42
+          },
+          "reason": {
+            "type": "string",
+            "example": "Customer requested a refund."
+          }
+        }
+      },
+      "admin_Toggle": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "key",
+          "description",
+          "enabled",
+          "mode",
+          "rolloutPercentage",
+          "updatedAt"
+        ],
+        "properties": {
+          "key": {
+            "type": "string",
+            "enum": [
+              "checkout_outage",
+              "orders_v2_deployed",
+              "admin_auth_disabled",
+              "pii_exposure_enabled",
+              "payment_gateway_key_invalid",
+              "intermittent_order_failures"
+            ]
+          },
+          "description": {
+            "type": "string"
+          },
+          "enabled": {
+            "type": "boolean"
+          },
+          "mode": {
+            "type": "string",
+            "enum": [
+              "deterministic",
+              "intermittent"
+            ]
+          },
+          "rolloutPercentage": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 100,
+            "example": 30
+          },
+          "updatedAt": {
+            "type": "string",
+            "format": "date-time"
+          }
+        }
+      },
+      "admin_ToggleListResponse": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "items"
+        ],
+        "properties": {
+          "items": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/admin_Toggle"
+            }
+          }
+        }
+      },
+      "admin_ToggleUpdateRequest": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "enabled": {
+            "type": "boolean"
+          },
+          "value": {
+            "type": "string",
+            "enum": [
+              "on",
+              "off",
+              "true",
+              "false"
+            ]
+          },
+          "mode": {
+            "type": "string",
+            "enum": [
+              "deterministic",
+              "intermittent"
+            ]
+          },
+          "rolloutPercentage": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 100,
+            "example": 30
+          }
+        }
+      },
+      "admin_AdminHealthResponse": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "service",
+          "ok",
+          "timestamp",
+          "carts",
+          "orders",
+          "customers",
+          "toggles"
+        ],
+        "properties": {
+          "service": {
+            "type": "string",
+            "example": "admin-service"
+          },
+          "ok": {
+            "type": "boolean",
+            "example": true
+          },
+          "timestamp": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "carts": {
+            "type": "integer",
+            "example": 21
+          },
+          "orders": {
+            "type": "integer",
+            "example": 20
+          },
+          "customers": {
+            "type": "integer",
+            "example": 50
+          },
+          "toggles": {
+            "type": "integer",
+            "example": 6
+          }
+        }
+      },
+      "admin_ResetResponse": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "reset",
+          "summary",
+          "toggles"
+        ],
+        "properties": {
+          "reset": {
+            "type": "boolean",
+            "example": true
+          },
+          "summary": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "products",
+              "carts",
+              "orders",
+              "payments",
+              "refunds",
+              "customers"
+            ],
+            "properties": {
+              "products": {
+                "type": "integer",
+                "example": 30
+              },
+              "carts": {
+                "type": "integer",
+                "example": 21
+              },
+              "orders": {
+                "type": "integer",
+                "example": 20
+              },
+              "payments": {
+                "type": "integer",
+                "example": 20
+              },
+              "refunds": {
+                "type": "integer",
+                "example": 3
+              },
+              "customers": {
+                "type": "integer",
+                "example": 50
+              }
+            }
+          },
+          "toggles": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/admin_Toggle"
+            }
+          }
+        }
+      },
+      "admin_AdminOrder": {
+        "type": "object",
+        "additionalProperties": true,
+        "required": [
+          "id",
+          "orderNumber",
+          "customerId",
+          "cartId",
+          "status",
+          "amount",
+          "currencyCode",
+          "sourceVersion",
+          "createdAt",
+          "updatedAt"
+        ],
+        "properties": {
+          "id": {
+            "type": "string",
+            "example": "ord_011"
+          },
+          "orderNumber": {
+            "type": "string",
+            "example": "DC-260111"
+          },
+          "customerId": {
+            "type": "string",
+            "example": "cust_011"
+          },
+          "cartId": {
+            "type": "string",
+            "example": "cart_hist_011"
+          },
+          "status": {
+            "type": "string"
+          },
+          "amount": {
+            "type": "number",
+            "example": 118
+          },
+          "currencyCode": {
+            "type": "string",
+            "enum": [
+              "USD"
+            ]
+          },
+          "sourceVersion": {
+            "type": "string",
+            "enum": [
+              "seed",
+              "v1",
+              "v2"
+            ]
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "updatedAt": {
+            "type": "string",
+            "format": "date-time"
+          }
+        }
+      },
+      "admin_AdminOrderHistoryResponse": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "order",
+          "history"
+        ],
+        "properties": {
+          "order": {
+            "$ref": "#/components/schemas/admin_AdminOrder"
+          },
+          "history": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/admin_OrderHistoryEvent"
+            }
+          }
+        }
+      },
+      "admin_OrderHistoryEvent": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "id",
+          "type",
+          "status",
+          "actor",
+          "message",
+          "timestamp"
+        ],
+        "properties": {
+          "id": {
+            "type": "string",
+            "example": "hist_1001"
+          },
+          "type": {
+            "type": "string",
+            "enum": [
+              "created",
+              "payment_authorized",
+              "payment_captured",
+              "fulfilled",
+              "refunded"
+            ]
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "pending",
+              "authorized",
+              "paid",
+              "fulfilled",
+              "refunded"
+            ]
+          },
+          "actor": {
+            "type": "string",
+            "example": "support"
+          },
+          "message": {
+            "type": "string"
+          },
+          "timestamp": {
+            "type": "string",
+            "format": "date-time"
+          }
+        }
+      }
+    },
+    "parameters": {}
+  }
+}
