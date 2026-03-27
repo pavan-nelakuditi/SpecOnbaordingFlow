@@ -1,0 +1,100 @@
+spec:
+  fileName: demo-commerce.openapi.json
+  title: demo-commerce API
+  version: 0.1.0
+flows:
+  - name: New flow
+    type: smoke
+    steps:
+      - stepKey: list-products-1
+        operationId: listProducts
+        bindings: []
+        extract:
+          - variable: id
+            jsonPath: $.items[0].id
+      - stepKey: get-product-by-id-2
+        operationId: getProductById
+        bindings:
+          - fieldKey: id
+            source: prior_output
+            sourceStepKey: list-products-1
+            variable: id
+        extract:
+          - variable: id
+            jsonPath: $.id
+      - stepKey: create-cart-3
+        operationId: createCart
+        bindings:
+          - fieldKey: currency
+            source: example
+        extract:
+          - variable: id
+            jsonPath: $.id
+          - variable: customerId
+            jsonPath: $.customerId
+      - stepKey: add-cart-item-4
+        operationId: addCartItem
+        bindings:
+          - fieldKey: id
+            source: prior_output
+            sourceStepKey: create-cart-3
+            variable: id
+          - fieldKey: productId
+            source: prior_output
+            sourceStepKey: get-product-by-id-2
+            variable: id
+        extract:
+          - variable: id
+            jsonPath: $.id
+          - variable: customerId
+            jsonPath: $.customerId
+      - stepKey: create-order-5
+        operationId: createOrder
+        bindings:
+          - fieldKey: customerId
+            source: prior_output
+            sourceStepKey: add-cart-item-4
+            variable: customerId
+          - fieldKey: cartId
+            source: prior_output
+            sourceStepKey: add-cart-item-4
+            variable: id
+        extract:
+          - variable: id
+            jsonPath: $.id
+          - variable: order_number
+            jsonPath: $.order_number
+          - variable: customerId
+            jsonPath: $.customerId
+          - variable: cartId
+            jsonPath: $.cartId
+          - variable: total_price
+            jsonPath: $.total_price
+      - stepKey: authorize-payment-6
+        operationId: authorizePayment
+        bindings:
+          - fieldKey: orderId
+            source: prior_output
+            sourceStepKey: create-order-5
+            variable: id
+          - fieldKey: amount
+            source: example
+        extract:
+          - variable: id
+            jsonPath: $.id
+          - variable: orderId
+            jsonPath: $.orderId
+          - variable: amount
+            jsonPath: $.amount
+          - variable: gatewayReference
+            jsonPath: $.gatewayReference
+          - variable: authorizedAt
+            jsonPath: $.authorizedAt
+      - stepKey: capture-payment-7
+        operationId: capturePayment
+        bindings:
+          - fieldKey: paymentId
+            source: prior_output
+            sourceStepKey: authorize-payment-6
+            variable: id
+        extract: []
